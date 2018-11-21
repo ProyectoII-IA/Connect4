@@ -22,8 +22,7 @@ class Board():
         return True 
 
     def get_cells_symbol(self, symbol):
-        cells = []
-        self.board.reverse()
+        cells = [] 
         for r, row in enumerate(self.board):
             for c, col in enumerate(row):
                 if(col == symbol):
@@ -32,15 +31,18 @@ class Board():
 
 
     def set_value_cell(self, col, symbol):
-        pass
+        row_empty = self.get_empty_element(col)
+        print(row_empty)
+        for row in enumerate(self.board):
+            if(row[0] == row_empty):
+                self.board[row[0]][col] = symbol
 
     def get_empty_element(self, col): #retorna la casilla más proxima donde no hay nada
         if((col <= self.cols) and (not(self.is_fill_column(col)))):
             col = self.get_column(col)
-            col.reverse()
             for pos, cell in enumerate(col):
                 if(cell == self.null_cell):
-                    return self.rows - pos
+                    return pos
         else:
             return -1
 
