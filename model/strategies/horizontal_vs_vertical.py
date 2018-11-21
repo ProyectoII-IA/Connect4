@@ -9,6 +9,7 @@
 
 # IMPORT SECTION
 import random as rd
+from model.strategies.strategy import Strategy
 
 
 class Horizontal_vertical(Strategy): 
@@ -21,21 +22,22 @@ class Horizontal_vertical(Strategy):
     # @return: array of numbers
 
     def get_action(self, board, array_number):
-        random = this.get_random_number()
-        positions_symbol = board.get_cells_symbol()
+        random = self.get_random_number()
+        positions_symbol = board.get_cells_symbol(1)
         flags = [False, False, False, False, False, False, False]
         for row, column in positions_symbol:
-            if (random <= this.probability):  # Horizontal (!column)
+            if random <= self.probability:  # Horizontal (!column)
                 for i in range(0, 7):
-                    if !(i == column):
-                        if !(board.is_full(i)):
+                    if not (i == column):
+                        if not (board.is_fill_column(i)):
                             array_number[i][2] += 1
                             flags[i] = True
             else:  # Vertical (column)
-                if !(board.is_full(column)):
+                if not (board.is_fill_column(column)):
                     array_number[column][2] += 1
                     flags[column] = True
 
         for i in range(0, 7):
-            if (flags[i]):
+            if flags[i]:
                 array_number[i][1] += 1  # if column i satisfy the strategy
+        print(array_number)

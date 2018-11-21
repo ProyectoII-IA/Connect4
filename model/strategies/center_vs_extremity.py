@@ -9,7 +9,7 @@
 
 # IMPORT SECTION
 import random as rd
-
+from model.strategies.strategy import Strategy
 
 class Center_vs_extremity(Strategy): 
     # Attributes------------------------
@@ -21,15 +21,16 @@ class Center_vs_extremity(Strategy):
     # @return: array of numbers
 
     def get_action(self, board, array_number):
-        random = this.get_random_number()
+        random = self.get_random_number()
         center_columns = [2, 3, 4]
-        extremity_columns = [0, 1, 5, 7]
+        extremity_columns = [0, 1, 5, 6]
         columns = []
-        if (random <= this.probability):  # Center (2, 3, 4)
+        if random <= self.probability:  # Center (2, 3, 4)
             columns = center_columns
         else:  # Extremity (0, 1, 5, 7)
             columns = extremity_columns
         for i in columns:
-                if !(board.is_full(i)):
+                if not (board.is_fill_column(i)):
                     array_number[i][1] += 1  # if column i satisfy the strategy
                     array_number[i][2] += 1
+        print(array_number)
