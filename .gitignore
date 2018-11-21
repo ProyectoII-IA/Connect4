@@ -1,0 +1,9 @@
+# Ignore los archivos que genera visual code
+.vscode/
+
+# Ignore el ambiente de python
+python_env/
+
+# Ignore la cache
+*__pycache__/
+
