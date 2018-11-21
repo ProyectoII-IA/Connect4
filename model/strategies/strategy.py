@@ -2,7 +2,7 @@
 # Description: Abstract class of strategies
 
 # Artificial Intelligence, II Semester 2018
-# Project: Connect 4
+# Project: Connect 4 
 # Author : Katerine Molina S. 
 # E-mail: kanatalia95@gmail.com
 # Version: 0.0.0 
