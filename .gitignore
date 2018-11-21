@@ -1,11 +1,16 @@
+
 # Ignore los archivos que genera visual code
 .vscode/
 
 # Ignore el ambiente de python
 python_env/
 
-# Ignore la cache
-# ignore objects and archives, anywhere in the tree.
-   /config/__pycache__/
-# exclude any /tmp files or folders at any level in the /src/ folder.
+*__pycache__
+
+
+
+
+
+
+
 
