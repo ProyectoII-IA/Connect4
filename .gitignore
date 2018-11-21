@@ -5,5 +5,7 @@
 python_env/
 
 # Ignore la cache
-**/__pycache__/
+# ignore objects and archives, anywhere in the tree.
+   /config/__pycache__/
+# exclude any /tmp files or folders at any level in the /src/ folder.
 
