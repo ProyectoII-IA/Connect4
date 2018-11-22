@@ -12,7 +12,8 @@ class Board():
         self.line = 4
 
     def clear_cell(self, row, col):
-        self.board[row][col] = self.null_cell
+        if(self.is_cell_valid(row, col)):
+            self.board[row][col] = self.null_cell
 
     def get_cols(self):
         return self.cols
@@ -150,3 +151,6 @@ class Board():
             return 1 + self.win_diag_back(row, col, sum_value, symb)
         else:
             return 0
+
+    def set_board(self, array):
+        self.board = array
