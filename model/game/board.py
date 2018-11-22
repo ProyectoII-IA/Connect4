@@ -11,6 +11,9 @@ class Board():
         self.last_mov = (0,0)
         self.line = 4
 
+    def clear_cell(self, row, col):
+        self.board[row][col] = self.null_cell
+
     def get_cols(self):
         return self.cols
 
@@ -104,8 +107,6 @@ class Board():
         d_slash = sum([self.win_diag_back(row + mov, col - mov, bhd, symb),
                       self.win_diag_back(row - mov, col + mov, fwd, symb)])
         
-
-        print(vrt)
         if(max([hzt, vrt, d_back, d_slash]) >= 3):
             return True
         return False
