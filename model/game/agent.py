@@ -11,12 +11,14 @@ class Agent(Player):
 
     strategies = []
 
-    def __init__(self):
+    def __init__(self, symb, symb_opp):
+        self.symb = symb
+        self.symb_opp = symb_opp
         pass
 
     def next_action(self, board):
-        win = self.win(board, 2)
-        block = self.block(board, 1)
+        win = self.win(board, self.symb)
+        block = self.block(board, self.symb_opp)
         if (win >= 0):
             print("Ganar")
             col = win

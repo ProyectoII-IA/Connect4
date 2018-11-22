@@ -16,7 +16,7 @@ def main():
          [0,0,0,0,0,0,0]]
 
     player_1 = Human()
-    player_2 = Agent()
+    player_2 = Agent(2, 1) # 2 es el symb del agente, 1 el del oponente
     game = Game(player_1, player_2)
     game.board.board = b
     game.play_game()
