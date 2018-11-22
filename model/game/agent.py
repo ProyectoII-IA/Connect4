@@ -27,12 +27,9 @@ class Agent(Player):
         cols = board.get_cols()
         for col in range(cols):
             if(not(board.is_fill_column(col))):
-                print("--------------------")
-                board.print_board()
-                print("")
                 board.set_value_cell(col,symb)
-                board.print_board()
-                print("")
                 if(board.winner(board.last_mov[0], board.last_mov[1], symb)):
-                    return col
+                    board.clear_cell(board.last_mov[0], board.last_mov[1])
+                    return board.last_mov[1]
+                board.clear_cell(board.last_mov[0], board.last_mov[1])
         return -1
