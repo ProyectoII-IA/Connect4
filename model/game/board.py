@@ -19,8 +19,10 @@ class Board():
 
     def created_board(self):
         for row in range(self.rows):
+            sub_row = []
             for col in range(self.cols):
-                self.board[row][col] = self.null_cell
+                sub_row.append(self.null_cell)
+            self.board.append(sub_row)
     
     def is_full(self):
         for row in range(self.rows):
@@ -102,6 +104,8 @@ class Board():
         d_slash = sum([self.win_diag_back(row + mov, col - mov, bhd, symb),
                       self.win_diag_back(row - mov, col + mov, fwd, symb)])
         
+
+        print(vrt)
         if(max([hzt, vrt, d_back, d_slash]) >= 3):
             return True
         return False
