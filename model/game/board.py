@@ -19,8 +19,10 @@ class Board():
 
     def created_board(self):
         for row in range(self.rows):
+            sub_row = []
             for col in range(self.cols):
-                self.board[row][col] = self.null_cell
+                sub_row.append(self.null_cell)
+            self.board.append(sub_row)
     
     def is_full(self):
         for row in range(self.rows):
