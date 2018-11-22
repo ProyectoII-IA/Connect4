@@ -17,8 +17,7 @@ class Game():
         self.board = Board()
         self.player_1 = player_1
         self.player_2 = player_2
-        self.turn_player_1 = False
-        
+        self.turn_player_1 = False 
 
     def play_game(self):
         #self.board.created_board()
@@ -52,7 +51,6 @@ class Game():
         if (self.turn_player_1):
             return self.board.winner(last_mov[0], last_mov[1], 1)
         else:
-            print(self.board.winner(last_mov[0], last_mov[1], 1))
             return self.board.winner(last_mov[0], last_mov[1], 2)
 
         
