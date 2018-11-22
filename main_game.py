@@ -1,5 +1,6 @@
 from model.game.board import Board
 from model.game.human import Human
+from model.game.agent import Agent
 from model.game.game import Game
 from model.strategies.center_vs_extremity import Center_vs_extremity
 from model.strategies.horizontal_vs_vertical import Horizontal_vertical
@@ -15,7 +16,7 @@ def main():
          [0,0,0,0,0,0,0]]
 
     player_1 = Human()
-    player_2 = Human()
+    player_2 = Agent()
     game = Game(player_1, player_2)
     game.board.board = b
     game.play_game()

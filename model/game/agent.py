@@ -14,8 +14,18 @@ class Agent(Player):
     def __init__(self):
         pass
 
-    def next_action(self):
-        pass
+    def next_action(self, board):
+        win = self.win(board, 2)
+        block = self.block(board, 1)
+        if (win >= 0):
+            print("Ganar")
+            col = win
+        elif (block >= 0):
+            print("Bloquear")
+            col = block
+        else:
+            col = int(input("Ingrese la columna a jugar: "))
+        return col
 
     def validate_action(self):
         pass
