@@ -8,8 +8,8 @@
 # Version: 0.0.0 
 
 #IMPORT SECTION
-from model.game.board import Board
-from model.game.player import Player
+from .board import Board
+from .player import Player
 
 class Game():
 

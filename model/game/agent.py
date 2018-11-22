@@ -1,5 +1,5 @@
-from model.game.player import Player
-from model.game.board import Board
+from .player import Player
+from .board import Board
 #from model.strategies.blocking1_vs_2 import Blocking1_vs_2
 #from model.strategies.center_vs_extremity import Center_vs_Extremity
 #from model.strategies.horizontal_vs_vertical import Horizontal_vs_Vertical
