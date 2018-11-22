@@ -96,7 +96,7 @@ class Board():
 
         hzt = sum([self.win_hzt(row, col - mov, bhd, symb),
                    self.win_hzt(row, col + mov, fwd, symb)]) 
-        vrt = self.win_vrt(row + mov, col, symb)
+        vrt = self.win_vrt(row - mov, col, symb)
         d_back = sum([self.win_diag_slash(row - mov, col - mov, bhd, symb),
                        self.win_diag_slash(row + mov, col + mov, fwd, symb)])
         d_slash = sum([self.win_diag_back(row + mov, col - mov, bhd, symb),
@@ -118,7 +118,7 @@ class Board():
 
     def win_vrt(self, row, col, symb):
         if(self.is_symbol_in(row, col, symb)):
-            return 1 + self.win_vrt(row + 1, col, symb)
+            return 1 + self.win_vrt(row - 1, col, symb)
         else:
             return 0
 
