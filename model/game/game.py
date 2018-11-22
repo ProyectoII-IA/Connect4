@@ -10,6 +10,7 @@
 #IMPORT SECTION
 from .board import Board
 from .player import Player
+from copy import deepcopy
 
 class Game():
 
@@ -25,11 +26,11 @@ class Game():
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
                 self.turn("1")
-                col = self.player_1.next_action(self.board)
+                col = self.player_1.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 1)
             else:
                 self.turn("2")
-                col = self.player_2.next_action(self.board)
+                col = self.player_2.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 2)
         print(self.who_is_winner())
 
