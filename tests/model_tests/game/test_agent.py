@@ -12,10 +12,19 @@ board.set_board(array)
 player_1 = Agent(1, 2) # 1 symbol of the agent, 2 symbol of the opponent
 player_2 = Agent(2, 1) # 2 symbol of the agent, 1 symbol of the opponent
 
-def test_next_action():
+def test_next_action_win():
     """ Check that next_action is working correctly
     """
-    pass
+    col_result = player_1.next_action(board)
+    col = 2
+    assert(col == col_result)
+
+def test_next_action_block():
+    """ Check that next_action is working correctly
+    """
+    col_result = player_2.next_action(board)
+    col = 2
+    assert(col == col_result)
 
 def test_validate_action():
     """ Check that validate_action is working correctly
