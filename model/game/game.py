@@ -20,7 +20,7 @@ class Game():
         self.turn_player_1 = False 
 
     def play_game(self):
-        #self.board.created_board()
+        self.board.created_board()
         while (not self.is_winner()):
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
