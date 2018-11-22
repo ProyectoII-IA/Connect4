@@ -11,6 +11,12 @@ class Board():
         self.last_col = 0
         self.line = 4
 
+    def get_cols(self):
+        return self.cols
+
+    def get_rows(self):
+        return self.rows
+
     def created_board(self):
         for row in range(self.rows):
             for col in range(self.cols):
@@ -23,24 +29,22 @@ class Board():
                     return False
         return True 
 
-    def get_cells_symbol(self, symbol):
+    def get_cells_symbol(self, symb):
         cells = [] 
         for r, row in enumerate(self.board):
             for c, col in enumerate(row):
-                if(col == symbol):
+                if(col == symb):
                     cells.append((r, c))
         return cells
 
-
-    def set_value_cell(self, col, symbol):
+    def set_value_cell(self, col, symb):
         row_empty = self.get_empty_element(col)
-        print(row_empty)
         for row in enumerate(self.board):
             if(row[0] == row_empty):
-                self.board[row[0]][col] = symbol
+                self.board[row[0]][col] = symb
 
-    def get_empty_element(self, col): #retorna la casilla más proxima donde no hay nada
-        if((col>=0) and (col < self.cols) and (not(self.is_fill_column(col)))):
+    def get_empty_element(self, col):
+        if((self.is_col_valid(col)) and (not(self.is_fill_column(col)))):
             col = self.get_column(col)
             for pos, cell in enumerate(col):
                 if(cell == self.null_cell):
@@ -67,64 +71,74 @@ class Board():
             print(self.board[rows-1])
             rows = rows - 1
 
-    def is_symbol_in(self, row, col, symbol):
-        if(row < self.rows and col < self.cols and row >= 0 and col >= 0):
-            return self.board[row][col] == symbol
+    def is_cell_valid(self, row, col):
+        return (self.is_row_valid(row) and self.is_row_valid(col))
+
+    def is_row_valid(self, row):
+        return (0 <= row < self.rows)
+
+    def is_col_valid(self, col):
+        return (0 <= col < self.cols)
+
+    def is_symbol_in(self, row, col, symb):
+        if(self.is_cell_valid(row, col)):
+            return self.board[row][col] == symb
         return False
 
-    def winner(self, row, col, symbol):
-        horizontal = self.winner_horizontal(row, col-1, False, symbol) + self.winner_horizontal(row, col+1, True, symbol)
-        
-        vertical = self.winner_vertical(row -1, col, symbol)
+    def winner(self, row, col, symb):
+        mov = 1
+        fwd = True
+        bhd = False
 
-        diagonal_slash = self.winner_diagonal_slash(row-1, col-1, False, symbol) + self.winner_diagonal_slash(row+1, col+1, True, symbol)
+        hzt = sum([self.win_hzt(row, col - mov, bhd, symb),
+                   self.win_hzt(row, col + mov, fwd, symb)]) 
+        vrt = self.win_vrt(row + mov, col, symb)
+        d_back = sum([self.win_diag_slash(row - mov, col - mov, bhd, symb),
+                       self.win_diag_slash(row + mov, col + mov, fwd, symb)])
+        d_slash = sum([self.win_diag_back(row + mov, col - mov, bhd, symb),
+                      self.win_diag_back(row - mov, col + mov, fwd, symb)])
         
-        diagonal_back = self.winner_diagonal_back(row+1, col-1, False, symbol) + self.winner_diagonal_back(row-1, col+1, True, symbol)
-        
-        if((horizontal or vertical or diagonal_back or diagonal_slash) >= 4):
-            return [True,symbol]
-        else:
-            return False
-        
+        if(max([hzt, vrt, d_back, d_slash]) >= 3):
+            return True
+        return False
 
-
-    def winner_horizontal(self, row, col, sum_value, symbol):
-        if(self.is_symbol_in(row, col, symbol)):
+    def win_hzt(self, row, col, sum_value, symb):
+        if(self.is_symbol_in(row, col, symb)):
             if(sum_value):
                 col = col + 1
             else:
                 col = col - 1
-            return 1 + self.winner_horizontal(row, col, sum_value, symbol)
+            return 1 + self.win_hzt(row, col, sum_value, symb)
         else:
             return 0
 
-    def winner_vertical(self, row, col, symbol):
-        if(self.is_symbol_in(row, col, symbol)):
-            return 1 + self.winner_vertical(row - 1, col, symbol)
+    def win_vrt(self, row, col, symb):
+        if(self.is_symbol_in(row, col, symb)):
+            return 1 + self.win_vrt(row + 1, col, symb)
         else:
             return 0
 
-    def winner_diagonal_slash(self, row, col, sum_value, symbol):
-        if(self.is_symbol_in(row, col, symbol)):
+    def win_diag_slash(self, row, col, sum_value, symb):
+        if(self.is_symbol_in(row, col, symb)):
             if(sum_value):
                 row = row + 1
                 col = col + 1
             else:
                 row = row - 1
                 col = col - 1
-            return 1 + self.winner_diagonal_slash(row, col, sum_value, symbol)
+            return 1 + self.win_diag_slash(row, col, sum_value, symb)
         else:
             return 0
 
-    def winner_diagonal_back(self, row, col, sum_value, symbol):
-        if(self.is_symbol_in(row, col, symbol)):
+    def win_diag_back(self, row, col, sum_value, symb):
+        if(self.is_symbol_in(row, col, symb)):
             if(sum_value):
                 row = row - 1
                 col = col + 1
             else:
                 row = row + 1
                 col = col - 1
-            return 1 + self.winner_diagonal_back(row, col, sum_value, symbol)
+            return 1 + self.win_diag_back(row, col, sum_value, symb)
         else:
             return 0
 
