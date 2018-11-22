@@ -8,6 +8,7 @@ class Human(Player):
         pass
 
     def next_action(self):
-        pass
+        col = int(input("Ingrese la columna a jugar: "))
+        return col
 
         

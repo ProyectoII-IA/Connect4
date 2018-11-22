@@ -8,7 +8,7 @@ class Board():
         self.cols = 7
         self.rows = 6
         self.null_cell = 0
-        self.last_col = 0
+        self.last_mov = (0,0)
         self.line = 4
 
     def get_cols(self):
@@ -37,12 +37,16 @@ class Board():
                     cells.append((r, c))
         return cells
 
+    def get_last_mov(self):
+        return self.last_mov
+
     def set_value_cell(self, col, symb):
         row_empty = self.get_empty_element(col)
         for row in enumerate(self.board):
             if(row[0] == row_empty):
                 self.board[row[0]][col] = symb
-
+                self.last_mov = (row[0], col)
+                
     def get_empty_element(self, col):
         if((self.is_col_valid(col)) and (not(self.is_fill_column(col)))):
             col = self.get_column(col)
@@ -141,10 +145,3 @@ class Board():
             return 1 + self.win_diag_back(row, col, sum_value, symb)
         else:
             return 0
-
-
-
-        
-
-
-
