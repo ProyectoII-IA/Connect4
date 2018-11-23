@@ -52,8 +52,7 @@ def test_is_winner_True():
     game.turn_player_1 = True
     game.board.board = array
     is_winner = game.is_winner()
-    result = True
-    assert(result == is_winner)
+    assert(is_winner)
 
 
 def test_is_winner_False():
@@ -69,5 +68,4 @@ def test_is_winner_False():
     game.turn_player_1 = True
     game.board.board = array
     is_winner = game.is_winner()
-    result = False
-    assert(result == is_winner)
+    assert(not is_winner)

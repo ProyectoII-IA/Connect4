@@ -36,8 +36,8 @@ class Agent(Player):
             print("Bloquear")
             col = block
         else:
-            self.get_strategy(board)
-            col = int(input("Ingrese la columna a jugar: "))
+            array_number = self.get_strategy(board)
+            col = self.get_column_number(array_number)
         return col
 
     def get_strategy(self, board):
@@ -50,15 +50,27 @@ class Agent(Player):
         array_number = strategy_3.get_action(board, array_number)
         return array_number
 
+    def get_column_number(self, array_number):
+        max_strategies = 0
+        max_amount = 0
+        col_number = 0
+        for x in array_number: 
+            if (x.strategies_number > max_strategies):
+                max_strategies = x.strategies_number
+            print(x.position,x.amount, x.strategies_number)
+        for x in array_number: 
+            if (x.strategies_number == max_strategies):
+                if (x.amount > max_amount):
+                    max_amount = x.amount
+                    col_number = x.position
+        return col_number
+
     def get_array_number(self):
         array_number = []
         for i in range(0,7):
             var_number = Number(i)
             array_number.append(var_number)
         return array_number
-
-    def validate_action(self):
-        pass
 
     def block(self, board, symb):
         return self.win(board, symb)

@@ -23,7 +23,10 @@ class Player:
     # @Description: validate_action
     # @Return: boolean
     def validate_action(self,board,position):
-        pass
+        if (board.is_fill_column(position)):
+            return False
+        else:
+            return True
 
 
 

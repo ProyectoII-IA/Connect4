@@ -24,6 +24,9 @@ class Game():
     def play_game(self):
         self.board.created_board()
         while (not self.is_winner()):
+            if(self.board.is_full()):
+                print("** Empate **")
+                return
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
                 self.turn("1")
@@ -48,6 +51,7 @@ class Game():
             return "** Ganador Jugador 2 **"
 
     def is_winner(self):
+
         last_mov = self.board.get_last_mov()
         if (self.turn_player_1):
             return self.board.winner(last_mov[0], last_mov[1], 1)
