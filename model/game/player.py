@@ -22,11 +22,14 @@ class Player:
     # @Method: VALIDATE_ACTION
     # @Description: validate_action
     # @Return: boolean
-    def validate_action(self,board,position):
-        if (board.is_fill_column(position)):
-            return False
+    def validate_action(self, board, position):
+        if(position >= 0 and position <= 6):
+            if (board.is_fill_column(position)):
+                return False
+            else:
+                return True
         else:
-            return True
+            return False
 
 
 
