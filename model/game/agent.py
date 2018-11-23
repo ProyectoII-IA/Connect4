@@ -1,15 +1,25 @@
+# Package: model.game.agent
+# Description: Class of agent
+
+# Artificial Intelligence, II Semester 2018
+# Project: Connect 4
+# Author : Mariana Rojas S. 
+# E-mail: mari.semeraro27@gmail.com
+# Version: 0.0.0 
+
+# IMPORT SECTION
+from ..strategies.position import Number
+from ..strategies.strategy import Strategy
+from ..strategies.sequential_vs_space import SequentialvsSpace
+from ..strategies.center_vs_extremity import Center_vs_extremity
+from ..strategies.horizontal_vs_vertical import Horizontal_vertical
 from .player import Player
 from .board import Board
-#from model.strategies.blocking1_vs_2 import Blocking1_vs_2
-#from model.strategies.center_vs_extremity import Center_vs_Extremity
-#from model.strategies.horizontal_vs_vertical import Horizontal_vs_Vertical
-#from model.strategies.sequential_vs_space import Sequential_vs_Space
-#from model.strategies.strategy import Strategy 
 
 
 class Agent(Player):
 
-    strategies = []
+    strategies = [0.80, 0.80, 0.80]
 
     def __init__(self, symb, symb_opp):
         self.symb = symb
@@ -26,8 +36,26 @@ class Agent(Player):
             print("Bloquear")
             col = block
         else:
+            self.get_strategy(board)
             col = int(input("Ingrese la columna a jugar: "))
         return col
+
+    def get_strategy(self, board):
+        array_number = self.get_array_number()
+        #strategy = SequentialvsSpace(self.strategies[0], self.symb)
+        #array_number = strategy.get_action(board,array_number)
+        strategy_2 = Center_vs_extremity(self.strategies[1], self.symb)
+        array_number = strategy_2.get_action(board, array_number)
+        strategy_3 = Horizontal_vertical(self.strategies[2], self.symb)
+        array_number = strategy_3.get_action(board, array_number)
+        return array_number
+
+    def get_array_number(self):
+        array_number = []
+        for i in range(0,7):
+            var_number = Number(i)
+            array_number.append(var_number)
+        return array_number
 
     def validate_action(self):
         pass

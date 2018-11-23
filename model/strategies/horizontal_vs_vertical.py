@@ -8,8 +8,8 @@
 # Version: 0.0.0 
 
 # IMPORT SECTION
-import random as rd
-from model.strategies.strategy import Strategy
+from .position import Number
+from .strategy import Strategy
 
 
 class Horizontal_vertical(Strategy): 

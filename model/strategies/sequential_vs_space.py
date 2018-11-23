@@ -8,8 +8,8 @@
 # Version: 0.0.0 
 
 #IMPORT SECTION
-from model.strategies.position import Number
-from model.strategies.strategy import Strategy
+from .position import Number
+from .strategy import Strategy
 
 class SequentialvsSpace(Strategy): 
     #Attributes------------------------
