@@ -16,14 +16,20 @@ class Number:
     strategies_number = 0 # each time that the number appear in each strategy
     amount = 0 # Repeated number amount
 
+    # constructor-----------------------------
+    def __init__(self,position):
+        self.position = position
+        self.strategies_number = 0
+        self.amount = 0
+
     # Methods-------------------------
     # @Method: INCREASE_STRATEGY
     # @Description: Add 1 to strategy amount
-    def increase_strategy(self):
-        self.strategies_number+=1
+    def increase_strategy(self,amount=1):
+        self.strategies_number+=amount
 
     # Methods-------------------------
     # @Method: INCREASE_AMOUNT
     # @Description: Add 1 to  amount
-    def increase_amount(self):
-        self.amount+=1
+    def increase_amount(self,amount=1):
+        self.amount+=amount
