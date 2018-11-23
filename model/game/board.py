@@ -47,11 +47,12 @@ class Board():
         return self.last_mov
 
     def set_value_cell(self, col, symb):
-        row_empty = self.get_empty_element(col)
-        for row in enumerate(self.board):
-            if(row[0] == row_empty):
-                self.board[row[0]][col] = symb
-                self.last_mov = (row[0], col)
+        if(self.is_col_valid(col)):
+            row_empty = self.get_empty_element(col)
+            for row in enumerate(self.board):
+                if(row[0] == row_empty):
+                    self.board[row[0]][col] = symb
+                    self.last_mov = (row[0], col)
                 
     def get_empty_element(self, col):
         if((self.is_col_valid(col)) and (not(self.is_fill_column(col)))):
@@ -64,16 +65,20 @@ class Board():
 
     def get_column(self, col):
         column = []
-        for row in self.board:
-            column.append(row[col])
+        if(self.is_col_valid(col)):
+            for row in self.board:
+                column.append(row[col])
         return column
 
     def is_fill_column(self, col):
-        col = self.get_column(col)
-        for cell in col:
-            if(cell == self.null_cell):
-                return False
-        return True
+        if(self.is_col_valid(col)):
+            col = self.get_column(col)
+            for cell in col:
+                if(cell == self.null_cell):
+                    return False
+            return True
+        else:
+            return False
 
     def print_board(self):
         rows = self.rows
@@ -82,7 +87,7 @@ class Board():
             rows = rows - 1
 
     def is_cell_valid(self, row, col):
-        return (self.is_row_valid(row) and self.is_row_valid(col))
+        return (self.is_row_valid(row) and self.is_col_valid(col))
 
     def is_row_valid(self, row):
         return (0 <= row < self.rows)
