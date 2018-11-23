@@ -77,15 +77,6 @@ def test_is_full_true():
     """ Check that the board is really full 
     """
 
-<<<<<<< HEAD
-    array = [[0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0],
-             [0,0,0,0,0,0,0]]
-    pass
-=======
     array = [[1,1,2,2,2,1,1],
              [2,1,1,1,2,1,2],
              [1,1,2,1,1,1,2],
@@ -96,7 +87,6 @@ def test_is_full_true():
     board.board = array
     
     assert(board.is_full() == True)         
->>>>>>> 3e2fe6164458c93bb30d996120f61df4731228ef
 
 def test_is_full_false():
     """ Check that the board is not really full 
