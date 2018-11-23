@@ -161,7 +161,7 @@ class Board():
     # @Method: WINNER
     # @Description: From a specific cell, ask if a line of 4 equal symbols
     #               is found in all directions
-    def winner(self, row, col, symb):
+    def winner(self, row, col, symb,max_connect = 3):
         mov = 1
         fwd = True
         bhd = False
@@ -173,7 +173,7 @@ class Board():
         d_slash = sum([self.win_diag_back(row + mov, col - mov, bhd, symb),
                       self.win_diag_back(row - mov, col + mov, fwd, symb)])
 
-        if(max([hzt, vrt, d_back, d_slash]) >= 3):
+        if(max([hzt, vrt, d_back, d_slash]) >= max_connect):
             return True
         return False
 

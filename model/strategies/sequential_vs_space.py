@@ -29,6 +29,8 @@ class SequentialvsSpace(Strategy):
     # @Description: validate if each position given is right
     # @return: Boolean
     def validate_sequential_position(self,row_prime,row):
+        if row_prime == -1:
+            return False
         if row in [row_prime+1,row_prime-1,row_prime]:
             return True
         return False
