@@ -13,13 +13,14 @@ from ..strategies.strategy import Strategy
 from ..strategies.sequential_vs_space import SequentialvsSpace
 from ..strategies.center_vs_extremity import Center_vs_extremity
 from ..strategies.horizontal_vs_vertical import Horizontal_vertical
+from ..strategies.blocking1_vs_2 import Blocking2vsBlocking1
 from .player import Player
 from .board import Board
 
 
 class Agent(Player):
 
-    strategies = [0.80, 0.80, 0.80]
+    strategies = [0.80, 0.80, 0.80, 0.80]
 
     def __init__(self, symb, symb_opp):
         self.symb = symb
@@ -42,12 +43,18 @@ class Agent(Player):
 
     def get_strategy(self, board):
         array_number = self.get_array_number()
-        #strategy = SequentialvsSpace(self.strategies[0], self.symb)
-        #array_number = strategy.get_action(board,array_number)
+        #STRATEGY 1 -> SequentialvsSpace
+        strategy = SequentialvsSpace(self.strategies[0], self.symb)
+        array_number = strategy.get_action(board,array_number)
+        #STRATEGY 2 -> Center_vs_extremity
         strategy_2 = Center_vs_extremity(self.strategies[1], self.symb)
         array_number = strategy_2.get_action(board, array_number)
+        #STRATEGY 3 -> Horizontal_vertical
         strategy_3 = Horizontal_vertical(self.strategies[2], self.symb)
         array_number = strategy_3.get_action(board, array_number)
+        #STRATEGY 3 -> Horizontal_vertical
+        strategy_4 = Blocking2vsBlocking1(self.strategies[3], self.symb,self.symb_opp)
+        array_number = strategy_4.get_action(board, array_number)
         return array_number
 
     def get_column_number(self, array_number):
