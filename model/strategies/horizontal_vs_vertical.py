@@ -16,6 +16,13 @@ class Horizontal_vertical(Strategy):
     # Attributes------------------------
     name: ""
     probability: ""
+
+    # Constructor----------------------
+    def __init__(self, probability, symbol):
+        self.probability =  probability
+        self.name = "Horizontal_Vertical"
+        self.symbol = symbol
+
     # Methods--------------------------
     # @Method:GET_ACTION
     # @Description: return new movement using the board as reference.
@@ -30,14 +37,14 @@ class Horizontal_vertical(Strategy):
                 for i in range(0, 7):
                     if not (i == column):
                         if not (board.is_fill_column(i)):
-                            array_number[i][2] += 1
+                            array_number[i].increase_amount(1) 
                             flags[i] = True
             else:  # Vertical (column)
                 if not (board.is_fill_column(column)):
-                    array_number[column][2] += 1
+                    array_number[column].increase_amount(1) 
                     flags[column] = True
 
         for i in range(0, 7):
             if flags[i]:
-                array_number[i][1] += 1  # if column i satisfy the strategy
-        print(array_number)
+                array_number[i].increase_strategy()
+        return array_number

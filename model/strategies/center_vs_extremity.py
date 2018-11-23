@@ -15,6 +15,13 @@ class Center_vs_extremity(Strategy):
     # Attributes------------------------
     name: ""
     probability: ""
+
+    # Constructor----------------------
+    def __init__(self, probability, symbol):
+        self.probability =  probability
+        self.name = "Center_vs_Extremity"
+        self.symbol = symbol
+
     # Methods--------------------------
     # @Method:GET_ACTION
     # @Description: return new movement using the board as reference.
@@ -31,6 +38,6 @@ class Center_vs_extremity(Strategy):
             columns = extremity_columns
         for i in columns:
                 if not (board.is_fill_column(i)):
-                    array_number[i][1] += 1  # if column i satisfy the strategy
-                    array_number[i][2] += 1
-        print(array_number)
+                    array_number[i].increase_amount() 
+                    array_number[i].increase_strategy()
+        return array_number
