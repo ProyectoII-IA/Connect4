@@ -85,3 +85,6 @@ class Agent(Player):
                     return board.last_mov[1]
                 board.clear_cell(board.last_mov[0], board.last_mov[1])
         return -1
+
+    def set_strategies(self, strategies):
+        self.strategies = strategies
