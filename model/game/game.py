@@ -7,10 +7,11 @@
 # E-mail: mari.semeraro27@gmail.com
 # Version: 0.0.0 
 
-#IMPORT SECTION
+# IMPORT SECTION
 from .board import Board
 from .player import Player
 from copy import deepcopy
+
 
 class Game():
 
@@ -37,7 +38,6 @@ class Game():
     def turn(self, num_player):
         self.board.print_board()
         print("Turno del Jugador " + num_player)
-        
 
     def who_is_winner(self):
         print("** Se acabo el juego **")
@@ -53,9 +53,3 @@ class Game():
             return self.board.winner(last_mov[0], last_mov[1], 1)
         else:
             return self.board.winner(last_mov[0], last_mov[1], 2)
-
-        
-        
-            
-
-
