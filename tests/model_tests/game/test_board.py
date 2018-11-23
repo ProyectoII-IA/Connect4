@@ -1,4 +1,15 @@
+# Package: tests.model_tests.game
+# Description: tests of structure board
+
+# Artificial Intelligence, II Semester 2018
+# Project: Connect 4
+# Author : Jonathan Martinez C.
+# E-mail: jonathan.gerad@hotmail.com
+# Version: 0.0.0
+
+# IMPORT SECTION
 from ....model.game.board import Board
+
 
 # ------ TEST_CLEAR_CELL ------
 
