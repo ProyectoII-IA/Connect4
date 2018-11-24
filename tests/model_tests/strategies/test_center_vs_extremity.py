@@ -60,7 +60,5 @@ def test_get_action_extremity():
         strategies_number = array_result[x.position][2]
         if not(x.position == position and x.amount == amount 
                 and strategies_number == x.strategies_number):
-            print(position, amount, strategies_number)
-            print(x.position, x.amount, x.strategies_number)
             result = False
     assert(result)
