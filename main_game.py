@@ -11,6 +11,7 @@ from model.strategies.blocking1_vs_2 import Blocking2vsBlocking1
 
 def main():
     
+
     player_1 = Agent(1, 2)
     player_2 = Agent(2, 1) # 2 es el symb del agente, 1 el del oponente
     game = Game(player_1, player_2)
