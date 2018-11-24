@@ -8,9 +8,9 @@
 # Version: 0.0.0 
 
 # IMPORT SECTION
-from ....model.game.game import Game
-from ....model.game.human import Human
-from ....model.game.agent import Agent
+from model.game.game import Game
+from model.game.human import Human
+from model.game.agent import Agent
 
 player_1 = Human()
 player_2 = Agent(2, 1)  # 2 symbol of the agent, 1 symbol of the opponent

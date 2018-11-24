@@ -8,8 +8,7 @@
 # Version: 0.0.0
 
 # IMPORT SECTION
-from ....model.game.board import Board
-
+from model.game.board import Board
 
 # ------ TEST_CLEAR_CELL ------
 
@@ -509,7 +508,7 @@ def test_last_mov():
 # ------ TEST_WINNER ------
 
 def test_winner_true():
-    """Given a box, check if there is win from it
+    """Given a cell, check if there is win from it
     """
 
     array = [[1,2,1,1,2,2,2],
@@ -533,38 +532,349 @@ def test_winner_true():
 
 
 def test_winner_false():
-    """Given a box, check if there is not win from it
+    """Given a cell, check if there is not win from it
     """
 
-    array = [[1,1,1,1,1,1,0],
-             [1,1,1,0,1,1,0],
-             [0,1,1,0,1,1,0],
-             [0,1,0,0,1,1,0],
-             [0,1,0,0,1,1,0],
-             [0,1,0,0,1,1,0]]
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,1,1,1,2],
+             [0,2,2,1,2,2,2],
+             [0,1,0,1,2,0,2],
+             [0,0,0,2,0,0,0],
+             [0,0,0,0,0,0,0]]
     board = Board()
     board.board = array
-    test_pos = [[1,2],[1,5],[1,6],[4,3],[3,6],[3,3]]
+    test_pos = [[1,2],[1,5],[1,8],[4,5],[3,6],[3,3],[-4,3],[2,11]]
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+
+    # compare with symbols valid
+    assert(board.winner(test_pos[0][0],test_pos[0][1],sym_p2) == False)
+    assert(board.winner(test_pos[1][0],test_pos[1][1],sym_p2) == False)
+    assert(board.winner(test_pos[3][0],test_pos[3][1],sym_p1) == False)
+    assert(board.winner(test_pos[4][0],test_pos[4][1],sym_p1) == False)
+    assert(board.winner(test_pos[5][0],test_pos[5][1],sym_p2) == False)
+    # compare with symbol not valid
+    assert(board.winner(test_pos[3][0],test_pos[3][1],sym_p3) == False)
+    assert(board.winner(test_pos[4][0],test_pos[4][1],sym_p3) == False)
+    assert(board.winner(test_pos[5][0],test_pos[5][1],sym_p3) == False)
+    # compare with cell (row, col) not valid
+    assert(board.winner(test_pos[2][0],test_pos[2][1],sym_p1) == False)
+    assert(board.winner(test_pos[6][0],test_pos[6][1],sym_p1) == False)
+    assert(board.winner(test_pos[7][0],test_pos[7][1],sym_p1) == False)
+
+
+# ------ TEST_WIN_HZT ------
+
+def test_win_hzt_true():
+    """Given a cell, check if there is win from it in horizontal line
+    """
+
+    array = [[1,2,1,1,2,2,2],
+             [1,1,1,1,1,1,2],
+             [0,2,2,2,2,2,2],
+             [0,1,0,1,2,0,2],
+             [0,0,0,2,0,0,0],
+             [0,0,0,0,0,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[1,0],[1,1],[1,2],[2,1],[2,2],[2,3]]
+    test_pos_2 = [[1,5],[1,4],[1,3],[2,6],[2,5],[2,4]]
+    size_line = 3
     sym_p1 = 1
     sym_p2 = 2
 
-    assert(board.winner(test_pos[0][0],test_pos[0][1],sym_p1) == True)
-    assert(board.winner(test_pos[1][0],test_pos[1][1],sym_p1) == True)
-    assert(board.winner(test_pos[2][0],test_pos[2][1],sym_p2) == True)
-    assert(board.winner(test_pos[3][0],test_pos[3][1],sym_p2) == True)
-    assert(board.winner(test_pos[4][0],test_pos[4][1],sym_p2) == True)
-    assert(board.winner(test_pos[5][0],test_pos[5][1],sym_p1) == True)
-"""
-def test_win_hzt():
-    pass
+    # compare cases left to rigth
+    assert(board.win_hzt(test_pos_1[0][0],test_pos_1[0][1],True,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_1[1][0],test_pos_1[1][1],True,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_1[2][0],test_pos_1[2][1],True,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_1[3][0],test_pos_1[3][1],True,sym_p2) >= size_line)
+    assert(board.win_hzt(test_pos_1[4][0],test_pos_1[4][1],True,sym_p2) >= size_line)
+    assert(board.win_hzt(test_pos_1[5][0],test_pos_1[5][1],True,sym_p2) >= size_line)
+    # compare cases rigth to lef
+    assert(board.win_hzt(test_pos_2[0][0],test_pos_2[0][1],False,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_2[1][0],test_pos_2[1][1],False,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_2[2][0],test_pos_2[2][1],False,sym_p1) >= size_line)
+    assert(board.win_hzt(test_pos_2[3][0],test_pos_2[3][1],False,sym_p2) >= size_line)
+    assert(board.win_hzt(test_pos_2[4][0],test_pos_2[4][1],False,sym_p2) >= size_line)
+    assert(board.win_hzt(test_pos_2[5][0],test_pos_2[5][1],False,sym_p2) >= size_line)
 
-def test_win_vrt():
-    pass
+def test_win_hzt_false():
+    """Given a cell, check if there is not win from it in horizontal line
+    """
 
-def test_diag_slash():
-    pass
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,1,1,1,2],
+             [0,2,2,1,2,2,2],
+             [0,1,0,1,2,0,2],
+             [0,0,0,2,0,0,0],
+             [0,0,0,0,0,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[2,0],[2,1],[2,2],[1,1],[1,2],[1,3]]
+    test_pos_2 = [[2,5],[2,4],[2,3],[1,6],[1,3],[1,4]]
+    test_pos_3 = [[-1,0],[10,3],[5,-4],[9,0]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+    
+    # compare cases left to rigth
+    assert(board.win_hzt(test_pos_1[0][0],test_pos_1[0][1],True,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_1[1][0],test_pos_1[1][1],True,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_1[2][0],test_pos_1[2][1],True,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_1[3][0],test_pos_1[3][1],True,sym_p2) < size_line)
+    assert(board.win_hzt(test_pos_1[4][0],test_pos_1[4][1],True,sym_p2) < size_line)
+    assert(board.win_hzt(test_pos_1[5][0],test_pos_1[5][1],True,sym_p2) < size_line)
+    # compare cases rigth to left
+    assert(board.win_hzt(test_pos_2[0][0],test_pos_2[0][1],False,sym_p2) < size_line)
+    assert(board.win_hzt(test_pos_2[1][0],test_pos_2[1][1],False,sym_p2) < size_line)
+    assert(board.win_hzt(test_pos_2[2][0],test_pos_2[2][1],False,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_2[3][0],test_pos_2[3][1],False,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_2[4][0],test_pos_2[4][1],False,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_2[5][0],test_pos_2[5][1],False,sym_p2) < size_line)
+    # compare with symbol not valid
+    assert(board.win_hzt(test_pos_1[4][0],test_pos_1[4][1],True,sym_p3) < size_line)
+    assert(board.win_hzt(test_pos_1[5][0],test_pos_1[5][1],True,sym_p3) < size_line)
+    assert(board.win_hzt(test_pos_2[4][0],test_pos_2[4][1],False,sym_p3) < size_line)
+    assert(board.win_hzt(test_pos_2[5][0],test_pos_2[5][1],False,sym_p3) < size_line)
+    # compare with cell (row, col) not valid
+    assert(board.win_hzt(test_pos_3[0][0],test_pos_1[0][1],True,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_3[1][0],test_pos_1[1][1],True,sym_p1) < size_line)
+    assert(board.win_hzt(test_pos_3[2][0],test_pos_2[2][1],False,sym_p2) < size_line)
+    assert(board.win_hzt(test_pos_3[3][0],test_pos_2[3][1],False,sym_p2) < size_line)
 
-def test_diag_back():
-    pass
+# ------ TEST_WIN_VRT ------
 
-"""
+def test_win_vrt_true():
+    """Given a cell, check if there is win from it in vertical line
+    """
+    
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,1,2,1,2],
+             [1,2,2,1,2,2,2],
+             [1,1,0,1,2,0,2],
+             [0,0,0,1,2,0,0],
+             [0,0,0,0,2,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[3,0],[4,3],[3,3],[5,4],[4,4],[3,4],[3,6]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+
+    assert(board.win_vrt(test_pos_1[0][0],test_pos_1[0][1],sym_p1) >= size_line)
+    assert(board.win_vrt(test_pos_1[1][0],test_pos_1[1][1],sym_p1) >= size_line)
+    assert(board.win_vrt(test_pos_1[2][0],test_pos_1[2][1],sym_p1) >= size_line)
+    assert(board.win_vrt(test_pos_1[3][0],test_pos_1[3][1],sym_p2) >= size_line)
+    assert(board.win_vrt(test_pos_1[4][0],test_pos_1[4][1],sym_p2) >= size_line)
+    assert(board.win_vrt(test_pos_1[5][0],test_pos_1[5][1],sym_p2) >= size_line)
+    assert(board.win_vrt(test_pos_1[6][0],test_pos_1[6][1],sym_p2) >= size_line)
+    
+def test_win_vrt_false():
+    """Given a cell, check if there is not win from it in vertical line
+    """
+    
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,1,2,1,2],
+             [1,2,2,1,2,2,2],
+             [1,1,0,1,2,0,2],
+             [0,0,0,1,2,0,0],
+             [0,0,0,0,2,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[3,0],[4,3],[3,3],[5,4],[4,4],[3,4],[3,6]]
+    test_pos_2 = [[-1,0],[9,10],[5,-5]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+
+    assert(board.win_vrt(test_pos_1[0][0],test_pos_1[0][1],sym_p2) < size_line)
+    assert(board.win_vrt(test_pos_1[1][0],test_pos_1[1][1],sym_p2) < size_line)
+    assert(board.win_vrt(test_pos_1[2][0],test_pos_1[2][1],sym_p2) < size_line)
+    assert(board.win_vrt(test_pos_1[3][0],test_pos_1[3][1],sym_p1) < size_line)
+    assert(board.win_vrt(test_pos_1[4][0],test_pos_1[4][1],sym_p1) < size_line)
+    assert(board.win_vrt(test_pos_1[5][0],test_pos_1[5][1],sym_p1) < size_line)
+    assert(board.win_vrt(test_pos_1[6][0],test_pos_1[6][1],sym_p1) < size_line)
+    # compare with symbol not valid
+    assert(board.win_vrt(test_pos_1[4][0],test_pos_1[4][1],sym_p3) < size_line)
+    assert(board.win_vrt(test_pos_1[5][0],test_pos_1[5][1],sym_p3) < size_line)
+    assert(board.win_vrt(test_pos_1[6][0],test_pos_1[6][1],sym_p3) < size_line)
+    # compare with cell (row, col) not valid
+    assert(board.win_vrt(test_pos_2[0][0],test_pos_2[0][1],sym_p3) < size_line)
+    assert(board.win_vrt(test_pos_2[1][0],test_pos_2[1][1],sym_p3) < size_line)
+    assert(board.win_vrt(test_pos_2[2][0],test_pos_2[2][1],sym_p3) < size_line)
+
+
+# ------ TEST_DIAG_BACK ------
+
+def test_diag_back_true():
+    """Given a cell, check if there is win from it in diagonal_back line
+    """
+    
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,2,2,1,2],
+             [1,1,2,1,1,2,2],
+             [1,2,2,1,2,2,2],
+             [2,2,1,1,2,0,0],
+             [0,1,0,2,2,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[3,0],[4,0],[3,1],[5,1],[4,2],[5,3]]
+    test_pos_2 = [[0,3],[0,4],[1,3],[1,5],[2,4],[2,6]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+
+    # compare cases left to rigth
+    assert(board.win_diag_back(test_pos_1[0][0],test_pos_1[0][1],True,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_1[1][0],test_pos_1[1][1],True,sym_p2) >= size_line)
+    assert(board.win_diag_back(test_pos_1[2][0],test_pos_1[2][1],True,sym_p2) >= size_line)
+    assert(board.win_diag_back(test_pos_1[3][0],test_pos_1[3][1],True,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_1[4][0],test_pos_1[4][1],True,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_1[5][0],test_pos_1[5][1],True,sym_p2) >= size_line)
+    # compare cases rigth to left
+    assert(board.win_diag_back(test_pos_2[0][0],test_pos_2[0][1],False,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_2[1][0],test_pos_2[1][1],False,sym_p2) >= size_line)
+    assert(board.win_diag_back(test_pos_2[2][0],test_pos_2[2][1],False,sym_p2) >= size_line)
+    assert(board.win_diag_back(test_pos_2[3][0],test_pos_2[3][1],False,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_2[4][0],test_pos_2[4][1],False,sym_p1) >= size_line)
+    assert(board.win_diag_back(test_pos_2[5][0],test_pos_2[5][1],False,sym_p2) >= size_line)
+    
+
+def test_diag_back_false():
+    """Given a cell, check if there is not win from it in diagonal_back line
+    """
+
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,2,2,1,2],
+             [1,1,2,1,1,2,2],
+             [1,2,2,1,2,2,2],
+             [2,2,1,1,2,0,0],
+             [0,1,0,2,2,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[3,0],[4,0],[3,1],[5,1],[4,2],[5,3]]
+    test_pos_2 = [[0,3],[0,4],[1,3],[1,5],[2,4],[2,6]]
+    test_pos_3 = [[-1,5],[7,8],[8,9],[-6,-5]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+
+    # compare cases left to rigth
+    assert(board.win_diag_back(test_pos_1[0][0],test_pos_1[0][1],True,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_1[1][0],test_pos_1[1][1],True,sym_p1) < size_line)
+    assert(board.win_diag_back(test_pos_1[2][0],test_pos_1[2][1],True,sym_p1) < size_line)
+    assert(board.win_diag_back(test_pos_1[3][0],test_pos_1[3][1],True,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_1[4][0],test_pos_1[4][1],True,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_1[5][0],test_pos_1[5][1],True,sym_p1) < size_line)
+    # compare cases rigth to left
+    assert(board.win_diag_back(test_pos_2[0][0],test_pos_2[0][1],False,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_2[1][0],test_pos_2[1][1],False,sym_p1) < size_line)
+    assert(board.win_diag_back(test_pos_2[2][0],test_pos_2[2][1],False,sym_p1) < size_line)
+    assert(board.win_diag_back(test_pos_2[3][0],test_pos_2[3][1],False,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_2[4][0],test_pos_2[4][1],False,sym_p2) < size_line)
+    assert(board.win_diag_back(test_pos_2[5][0],test_pos_2[5][1],False,sym_p1) < size_line)
+    # compare with symbol not valid
+    assert(board.win_diag_back(test_pos_1[4][0],test_pos_1[4][1],True,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_1[5][0],test_pos_1[5][1],True,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_2[0][0],test_pos_2[0][1],False,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_2[1][0],test_pos_2[1][1],False,sym_p3) < size_line)
+    # compare with cell (row, col) not valid
+    assert(board.win_diag_back(test_pos_3[0][0],test_pos_3[0][1],True,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_3[1][0],test_pos_3[1][1],True,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_3[2][0],test_pos_3[2][1],False,sym_p3) < size_line)
+    assert(board.win_diag_back(test_pos_3[3][0],test_pos_3[3][1],False,sym_p3) < size_line)
+
+
+# ------ TEST_DIAG_SLASH ------
+
+def test_diag_slash_true():
+    """Given a cell, check if there is win from it in diagonal_slash line
+    """
+    
+    array = [[2,2,1,2,2,2,2],
+             [1,2,1,2,2,1,2],
+             [1,1,2,1,2,2,2],
+             [1,2,1,2,2,2,2],
+             [2,2,1,1,2,0,2],
+             [0,1,0,2,1,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[0,0],[1,1],[1,0],[2,1],[1,3],[0,3]]
+    test_pos_2 = [[5,4],[4,3],[4,4],[3,3],[4,6],[3,6]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+
+    # compare cases left to rigth
+    assert(board.win_diag_slash(test_pos_1[0][0],test_pos_1[0][1],True,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_1[1][0],test_pos_1[1][1],True,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_1[2][0],test_pos_1[2][1],True,sym_p1) >= size_line)
+    assert(board.win_diag_slash(test_pos_1[3][0],test_pos_1[3][1],True,sym_p1) >= size_line)
+    assert(board.win_diag_slash(test_pos_1[4][0],test_pos_1[4][1],True,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_1[5][0],test_pos_1[5][1],True,sym_p2) >= size_line)
+    # compare cases rigth to left
+    assert(board.win_diag_slash(test_pos_2[0][0],test_pos_2[0][1],False,sym_p1) >= size_line)
+    assert(board.win_diag_slash(test_pos_2[1][0],test_pos_2[1][1],False,sym_p1) >= size_line)
+    assert(board.win_diag_slash(test_pos_2[2][0],test_pos_2[2][1],False,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_2[3][0],test_pos_2[3][1],False,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_2[4][0],test_pos_2[4][1],False,sym_p2) >= size_line)
+    assert(board.win_diag_slash(test_pos_2[5][0],test_pos_2[5][1],False,sym_p2) >= size_line)
+
+
+def test_diag_slash_false():
+    """Given a cell, check if there is not win from it in diagonal_slash line
+    """
+
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,2,2,1,2],
+             [1,1,2,1,1,2,2],
+             [1,2,2,1,2,2,2],
+             [2,2,1,1,2,0,0],
+             [0,1,0,2,2,0,0]]
+    board = Board()
+    board.board = array
+    test_pos_1 = [[3,0],[4,0],[3,1],[5,1],[4,2],[5,3]]
+    test_pos_2 = [[0,3],[0,4],[1,3],[1,5],[2,4],[2,6]]
+    test_pos_3 = [[-1,5],[7,8],[8,9],[-6,-5]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+
+    # compare cases left to rigth
+    test_pos_1 = [[0,0],[1,1],[1,0],[2,1],[1,3],[0,3]]
+    test_pos_2 = [[5,4],[4,3],[4,4],[3,3],[4,6],[3,6]]
+    test_pos_3 = [[-1,5],[7,8],[8,9],[-6,-5]]
+    size_line = 3
+    sym_p1 = 1
+    sym_p2 = 2
+    sym_p3 = 3
+
+    # compare cases left to rigth
+    assert(board.win_diag_slash(test_pos_1[0][0],test_pos_1[0][1],True,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_1[1][0],test_pos_1[1][1],True,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_1[2][0],test_pos_1[2][1],True,sym_p2) < size_line)
+    assert(board.win_diag_slash(test_pos_1[3][0],test_pos_1[3][1],True,sym_p2) < size_line)
+    assert(board.win_diag_slash(test_pos_1[4][0],test_pos_1[4][1],True,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_1[5][0],test_pos_1[5][1],True,sym_p1) < size_line)
+    # compare cases rigth to left
+    assert(board.win_diag_slash(test_pos_2[0][0],test_pos_2[0][1],False,sym_p2) < size_line)
+    assert(board.win_diag_slash(test_pos_2[1][0],test_pos_2[1][1],False,sym_p2) < size_line)
+    assert(board.win_diag_slash(test_pos_2[2][0],test_pos_2[2][1],False,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_2[3][0],test_pos_2[3][1],False,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_2[4][0],test_pos_2[4][1],False,sym_p1) < size_line)
+    assert(board.win_diag_slash(test_pos_2[5][0],test_pos_2[5][1],False,sym_p1) < size_line)
+    # compare with symbol not valid
+    assert(board.win_diag_slash(test_pos_1[4][0],test_pos_1[4][1],True,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_1[5][0],test_pos_1[5][1],True,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_2[0][0],test_pos_2[0][1],False,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_2[1][0],test_pos_2[1][1],False,sym_p3) < size_line)
+    # compare with cell (row, col) not valid
+    assert(board.win_diag_slash(test_pos_3[0][0],test_pos_3[0][1],True,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_3[1][0],test_pos_3[1][1],True,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_3[2][0],test_pos_3[2][1],False,sym_p3) < size_line)
+    assert(board.win_diag_slash(test_pos_3[3][0],test_pos_3[3][1],False,sym_p3) < size_line)

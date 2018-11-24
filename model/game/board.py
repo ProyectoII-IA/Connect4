@@ -182,56 +182,64 @@ class Board():
     # @Description: From a specific cell, ask if a line of 4 equal symbols
     #               is found in horizontal direction
     def win_hzt(self, row, col, sum_value, symb):
-        if(self.is_symbol_in(row, col, symb)):
-            if(sum_value):
-                col = col + 1
+        if(self.is_cell_valid(row,col)):
+            if(self.is_symbol_in(row, col, symb)):
+                if(sum_value):
+                    col = col + 1
+                else:
+                    col = col - 1
+                return 1 + self.win_hzt(row, col, sum_value, symb)
             else:
-                col = col - 1
-            return 1 + self.win_hzt(row, col, sum_value, symb)
-        else:
-            return 0
+                return 0
+        return 0
 
     # Methods-------------------------
     # @Method: WIN_VRT
     # @Description: From a specific cell, ask if a line of 4 equal symbols
     #               is found in vertical direction
     def win_vrt(self, row, col, symb):
-        if(self.is_symbol_in(row, col, symb)):
-            return 1 + self.win_vrt(row - 1, col, symb)
-        else:
-            return 0
+        if(self.is_cell_valid(row, col)):
+            if(self.is_symbol_in(row, col, symb)):
+                return 1 + self.win_vrt(row - 1, col, symb)
+            else:
+                return 0
+        return 0
 
     # Methods-------------------------
     # @Method: WIN_DIAG_SLASH
     # @Description: From a specific cell, ask if a line of 4 equal symbols
     #               is found in diagonal-slash direction
     def win_diag_slash(self, row, col, sum_value, symb):
-        if(self.is_symbol_in(row, col, symb)):
-            if(sum_value):
-                row = row + 1
-                col = col + 1
+        if(self.is_cell_valid(row, col)):
+            if(self.is_symbol_in(row, col, symb)):
+                if(sum_value):
+                    row = row + 1
+                    col = col + 1
+                else:
+                    row = row - 1
+                    col = col - 1
+                return 1 + self.win_diag_slash(row, col, sum_value, symb)
             else:
-                row = row - 1
-                col = col - 1
-            return 1 + self.win_diag_slash(row, col, sum_value, symb)
-        else:
-            return 0
+                return 0
+        return 0
 
     # Methods-------------------------
     # @Method: WIN_DIAG_BACK
     # @Description: From a specific cell, ask if a line of 4 equal symbols
     #               is found in diagonal-back direction
     def win_diag_back(self, row, col, sum_value, symb):
-        if(self.is_symbol_in(row, col, symb)):
-            if(sum_value):
-                row = row - 1
-                col = col + 1
+        if(self.is_cell_valid(row, col)):
+            if(self.is_symbol_in(row, col, symb)):
+                if(sum_value):
+                    row = row - 1
+                    col = col + 1
+                else:
+                    row = row + 1
+                    col = col - 1
+                return 1 + self.win_diag_back(row, col, sum_value, symb)
             else:
-                row = row + 1
-                col = col - 1
-            return 1 + self.win_diag_back(row, col, sum_value, symb)
-        else:
-            return 0
+                return 0
+        return 0
 
     # Methods-------------------------
     # @Method: SET_BOARD
