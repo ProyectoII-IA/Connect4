@@ -8,9 +8,9 @@
 # Version: 0.0.0 
 
 # IMPORT SECTION
-from ....model.game.board import Board
-from ....model.strategies.position import Number
-from ....model.strategies.horizontal_vs_vertical import Horizontal_vertical
+from model.game.board import Board
+from model.strategies.position import Number
+from model.strategies.horizontal_vs_vertical import Horizontal_vertical
 from copy import deepcopy
 
 b = [[1, 0, 1, 2, 1, 0, 0],
