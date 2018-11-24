@@ -9,6 +9,9 @@ python_env/
 
 *.pytest_cache
 
+*.coverage
+
+*htmlcov/
 
 
 
