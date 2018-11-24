@@ -506,11 +506,55 @@ def test_last_mov():
     assert(board.last_mov == last_position)
 
 
+# ------ TEST_WINNER ------
 
+def test_winner_true():
+    """Given a box, check if there is win from it
+    """
+
+    array = [[1,2,1,1,2,2,2],
+             [1,2,1,1,1,1,2],
+             [0,2,2,1,2,2,2],
+             [0,1,0,1,2,0,2],
+             [0,0,0,2,0,0,0],
+             [0,0,0,0,0,0,0]]
+    board = Board()
+    board.board = array
+    test_pos = [[1,2],[1,5],[1,6],[4,3],[3,6],[3,3]]
+    sym_p1 = 1
+    sym_p2 = 2
+
+    assert(board.winner(test_pos[0][0],test_pos[0][1],sym_p1) == True)
+    assert(board.winner(test_pos[1][0],test_pos[1][1],sym_p1) == True)
+    assert(board.winner(test_pos[2][0],test_pos[2][1],sym_p2) == True)
+    assert(board.winner(test_pos[3][0],test_pos[3][1],sym_p2) == True)
+    assert(board.winner(test_pos[4][0],test_pos[4][1],sym_p2) == True)
+    assert(board.winner(test_pos[5][0],test_pos[5][1],sym_p1) == True)
+
+
+def test_winner_false():
+    """Given a box, check if there is not win from it
+    """
+
+    array = [[1,1,1,1,1,1,0],
+             [1,1,1,0,1,1,0],
+             [0,1,1,0,1,1,0],
+             [0,1,0,0,1,1,0],
+             [0,1,0,0,1,1,0],
+             [0,1,0,0,1,1,0]]
+    board = Board()
+    board.board = array
+    test_pos = [[1,2],[1,5],[1,6],[4,3],[3,6],[3,3]]
+    sym_p1 = 1
+    sym_p2 = 2
+
+    assert(board.winner(test_pos[0][0],test_pos[0][1],sym_p1) == True)
+    assert(board.winner(test_pos[1][0],test_pos[1][1],sym_p1) == True)
+    assert(board.winner(test_pos[2][0],test_pos[2][1],sym_p2) == True)
+    assert(board.winner(test_pos[3][0],test_pos[3][1],sym_p2) == True)
+    assert(board.winner(test_pos[4][0],test_pos[4][1],sym_p2) == True)
+    assert(board.winner(test_pos[5][0],test_pos[5][1],sym_p1) == True)
 """
-def test_winner():
-    pass
-
 def test_win_hzt():
     pass
 
