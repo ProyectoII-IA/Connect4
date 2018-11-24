@@ -1,5 +1,5 @@
 # Package: tests.model_tests.startegies
-# Description: tests of strategy sequential_vs_space
+# Description: tests of strategy blocking1_vs_2
 
 # Artificial Intelligence, II Semester 2018
 # Project: Connect 4
@@ -10,12 +10,12 @@
 # IMPORT SECTION
 from model.game.board import Board
 from model.strategies.position import Number
-from model.strategies.sequential_vs_space import SequentialvsSpace
+from model.strategies.blocking2_vs_1 import Blocking2vsBlocking1
 from copy import deepcopy
 
-b = [[1, 0, 1, 2, 1, 0, 0],
-     [2, 0, 0, 2, 1, 0, 0],
-     [1, 0, 0, 1, 2, 0, 0],
+b = [[1, 0, 1, 2, 1, 1, 0],
+     [2, 0, 0, 2, 1, 2, 0],
+     [1, 0, 0, 1, 2, 2, 0],
      [2, 0, 0, 0, 1, 0, 0],
      [2, 0, 0, 0, 1, 0, 0],
      [1, 0, 0, 0, 2, 0, 0]]
@@ -27,13 +27,13 @@ for i in range(0, 7):
     var_number = Number(i)
     array_number.append(var_number)
 
-def test_get_action_sequential():
+def test_get_action_blocking2():
     """ Check that get_action is working correctly
     """
-    strategy = SequentialvsSpace(1, 1)  # Probability 1 (sequential) 
+    strategy = Blocking2vsBlocking1(1, 1, 2)  # Probability 1 (blocking_2) 
     var_action = strategy.get_action(board, deepcopy(array_number))
-    array_result = [[0, 0, 0], [1, 2, 1], [2, 2, 1], 
-                    [3, 3, 1], [4, 0, 0], [5, 2, 1], [6, 0, 0]]
+    array_result = [[0, 0, 0], [1, 0, 0], [2, 0, 0], 
+                    [3, 1, 1], [4, 0, 0], [5, 1, 1], [6, 1, 1]]
     result = True
     for x in var_action: 
         position = array_result[x.position][0]
@@ -44,13 +44,13 @@ def test_get_action_sequential():
             result = False
     assert(result)
 
-def test_get_action_space():
+def test_get_action_blocking1():
     """ Check that get_action is working correctly
     """
-    strategy = SequentialvsSpace(0, 1)  # Probability 0 (space) 
+    strategy = Blocking2vsBlocking1(0, 1, 2)  # Probability 0 (blocking_1) 
     var_action = strategy.get_action(board, deepcopy(array_number))
-    array_result = [[0, 1, 1], [1, 0, 0], [2, 0, 0], 
-                    [3, 0, 0], [4, 1, 1], [5, 0, 0], [6, 1, 1]]
+    array_result = [[0, 0, 0], [1, 1, 1], [2, 1, 1], 
+                    [3, 1, 1], [4, 0, 0], [5, 1, 1], [6, 1, 1]]
     result = True
     for x in var_action: 
         position = array_result[x.position][0]

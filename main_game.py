@@ -7,17 +7,20 @@ from model.game.agent import Agent
 from model.game.game import Game
 from model.strategies.center_vs_extremity import Center_vs_extremity
 from model.strategies.horizontal_vs_vertical import Horizontal_vertical
-from model.strategies.blocking1_vs_2 import Blocking2vsBlocking1
+from model.strategies.blocking2_vs_1 import Blocking2vsBlocking1
 
 def main():
     
-
     player_1 = Agent(1, 2, False)
     player_2 = Agent(2, 1) # 2 es el symb del agente, 1 el del oponente
     game = Game(player_1, player_2)
     game.play_game()
-
-    """ 
+""" 
+    player_1 = Agent(1, 2, False)
+    player_2 = Agent(2, 1) # 2 es el symb del agente, 1 el del oponente
+    game = Game(player_1, player_2)
+    game.play_game()
+    
     b = [[0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0],
@@ -35,7 +38,7 @@ def main():
     #player_2.win(game.board, 1)
     #game.board.print_board()
     
-    """  
+"""  
     b = [[0,0,1,2,1,0,0],
          [0,0,0,1,1,0,0],
          [0,0,0,0,0,0,0],

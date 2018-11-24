@@ -13,7 +13,7 @@ from ..strategies.strategy import Strategy
 from ..strategies.sequential_vs_space import SequentialvsSpace
 from ..strategies.center_vs_extremity import Center_vs_extremity
 from ..strategies.horizontal_vs_vertical import Horizontal_vertical
-from ..strategies.blocking1_vs_2 import Blocking2vsBlocking1
+from ..strategies.blocking2_vs_1 import Blocking2vsBlocking1
 from .player import Player
 from .board import Board
 
