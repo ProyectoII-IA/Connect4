@@ -1,3 +1,13 @@
+# Package: tests.model_tests.game
+# Description: tests of structure agent
+
+# Artificial Intelligence, II Semester 2018
+# Project: Connect 4
+# Author : Mariana Rojas S. 
+# E-mail: mari.semeraro27@gmail.com
+# Version: 0.0.0 
+
+# IMPORT SECTION
 from ....model.game.agent import Agent
 from ....model.game.board import Board
 from ....model.strategies.position import Number

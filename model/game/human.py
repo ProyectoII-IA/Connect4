@@ -1,3 +1,13 @@
+# Package: model.game.human
+# Description: Class of human
+
+# Artificial Intelligence, II Semester 2018
+# Project: Connect 4
+# Author : Mariana Rojas S. 
+# E-mail: mari.semeraro27@gmail.com
+# Version: 0.0.0 
+
+# IMPORT SECTION
 from .player import Player
 
 

@@ -29,18 +29,18 @@ class Game():
                 return
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
-                self.turn("1")
+                print(self.turn("1"))
                 col = self.player_1.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 1)
             else:
-                self.turn("2")
+                print(self.turn("2"))
                 col = self.player_2.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 2)
         print(self.who_is_winner())
 
     def turn(self, num_player):
         self.board.print_board()
-        print("Turno del Jugador " + num_player)
+        return "Turno del Jugador " + num_player
 
     def who_is_winner(self):
         print("** Se acabo el juego **")
@@ -51,7 +51,6 @@ class Game():
             return "** Ganador Jugador 2 **"
 
     def is_winner(self):
-
         last_mov = self.board.get_last_mov()
         if (self.turn_player_1):
             return self.board.winner(last_mov[0], last_mov[1], 1)
