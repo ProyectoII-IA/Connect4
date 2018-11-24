@@ -19,17 +19,23 @@ class GeneticAlgorithm:
     # fields-----------------
     population = []
 
- 
+    #Constructor-------------
     def __init__(self,population_a = cf.POPULATION_AMOUNT):
         self.init_population(population_a)
 
+    #Methods-----------------
+    # @Method:GET_RANDOM_PROBABILITIES
+    # @Description: return an array of 4 of random probabilities
+    # @return: array of float
     def get_random_probabilities(self):
         array_probabilities = []
         for index in range(4):
             new_probability = round(rd.random(),2)
             array_probabilities.append(new_probability)
         return array_probabilities
-
+    # @Method:INIT_POPULATION
+    # @Description: Initialize the first population with individual and random probabilities
+    # @return: none
     def init_population(self,population_a):
         for index in range(population_a):
             new_agent_1 = Agent(1,2)
@@ -39,13 +45,20 @@ class GeneticAlgorithm:
             new_individual =  Individual(new_agent_1,0,new_agent_2,0)
             self.population.append(new_individual)
 
+    # @Method:GET_WINNER_FROM_GENERATION
+    # @Description: select the best winner for the last population
+    # @return: agent with best strategies
     def get_winner_from_generation(self):
         winner_individual = self.population[0]
         winner_individual.fit_agents()
         winner_agent = winner_individual.get_winner_agent()
         print(winner_agent[0].strategies)
         return winner_agent[0].strategies
-   
+
+    # @Method:CROSSOVER_FUNCTION
+    # @Description: crossover of the last population
+    # Example, the first individual is cross with the second best individual
+    # @return: update population array 
     def crossover_function(self,sorted_array):
         p_length_half = int(cf.POPULATION_AMOUNT/2) # Only select the first middle of array
         # Clear Population variable
@@ -56,8 +69,10 @@ class GeneticAlgorithm:
             (new_ind_1, new_ind_2) = individual_1.crossover(individual_2)
             self.population.append(new_ind_1)
             self.population.append(new_ind_2)
-        
-    
+
+    # @Method:GET_WINNER_INFORMATION
+    # @Description: generate a good winner using genetics algorithm 
+    # @return: stretagies used for the best
     def get_winner_information(self):
         counter = cf.GENERATION_AMOUNT
         fitness_function = lambda x : (x.fit_agents(),x)
@@ -76,7 +91,6 @@ class GeneticAlgorithm:
             # CROSSOVER THE FIRST MIDDLE OF POPULATION
             self.crossover_function(sorted_fitness)
             counter-=1
-            
         return self.get_winner_from_generation()
 
 

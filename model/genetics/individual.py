@@ -39,17 +39,25 @@ class Individual:
         else:
             return self.agent_2
 
+    # @Method:MUTATION_CROSSOVER
+    # @Description: cross the individual with another when mutation was activated
+    # @return: two individuals instance
     def mutation_crossover(self,agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2):
         new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
         new_individual_2 = Individual(agent_winner_2[0],agent_winner_2[2],agent_loser_1[0],agent_loser_1[2]+agent_loser_1[1])
         return new_individual_1,new_individual_2
 
+    # @Method:SIMPLE_CROSSOVER
+    # @Description: cross the individual with another getting the winners first and the loser in separeted individuals
+    # @return: two individuals instance
     def simple_crossover(self,agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2):
         new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2],agent_winner_2[0],agent_winner_2[2]+agent_winner_2[1])
         new_individual_2 = Individual(agent_loser_1[0],agent_loser_1[2],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
         return new_individual_1,new_individual_2
-        
 
+    # @Method:CROSSOVER
+    # @Description: cross the individual with another 
+    # @return: two individuals instance  
     def crossover(self,individual_2):
         agent_winner_1 = self.get_winner_agent()
         agent_winner_2 = individual_2.get_winner_agent()
@@ -59,7 +67,10 @@ class Individual:
             return self.mutation_crossover(agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2)
         else:
             return self.simple_crossover(agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2)
-
+    
+    # @Method:FIT_AGENTS
+    # @Description: fit both agents getting the best winner
+    # @return: win percent 
     def fit_agents(self):
         counter = cf.FIT_LOOP
         game = GameGenetics(self.agent_1[0],self.agent_2[0])
@@ -77,6 +88,9 @@ class Individual:
         max_winner = max(self.agent_1[1],self.agent_2[1])
         return max_winner/cf.FIT_LOOP
 
+    # @Method:To_String
+    # @Description: print agents information
+    # @return: string 
     def to_string(self):
         return "Agent 1" + str(self.agent_1[0].strategies)+" Agent 2 "+ str(self.agent_2[0].strategies)
     
