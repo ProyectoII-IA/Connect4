@@ -8,8 +8,7 @@
 # Version: 0.0.0
 
 # IMPORT SECTION
-from ....model.game.board import Board
-
+from model.game.board import Board
 
 # ------ TEST_CLEAR_CELL ------
 

@@ -8,13 +8,13 @@
 # Version: 0.0.0 
 
 # IMPORT SECTION
-from ....model.game.agent import Agent
-from ....model.game.board import Board
-from ....model.strategies.position import Number
-from ....model.strategies.strategy import Strategy
-from ....model.strategies.sequential_vs_space import SequentialvsSpace
-from ....model.strategies.center_vs_extremity import Center_vs_extremity
-from ....model.strategies.horizontal_vs_vertical import Horizontal_vertical
+from model.game.agent import Agent
+from model.game.board import Board
+from model.strategies.position import Number
+from model.strategies.strategy import Strategy
+from model.strategies.sequential_vs_space import SequentialvsSpace
+from model.strategies.center_vs_extremity import Center_vs_extremity
+from model.strategies.horizontal_vs_vertical import Horizontal_vertical
 
 array = [[1, 1, 1, 2, 1, 0, 0],
          [2, 1, 1, 1, 2, 0, 0],

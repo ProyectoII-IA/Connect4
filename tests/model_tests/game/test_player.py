@@ -8,8 +8,8 @@
 # Version: 0.0.0 
 
 # IMPORT SECTION
-from ....model.game.player import Player
-from ....model.game.board import Board
+from model.game.player import Player
+from model.game.board import Board
 
 array = [[1, 1, 1, 2, 1, 0, 0],
          [2, 1, 1, 1, 2, 0, 0],
