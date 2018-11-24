@@ -43,39 +43,90 @@ def test_next_action_block():
     col = 2
     assert(col == col_result)
 
-def test_get_strategy():
+def test_get_strategy_1():
     """ Check that get_strategy is working correctly
     """
-    pass
+    b = [[1, 0, 1, 2, 1, 1, 0],
+     [2, 0, 0, 2, 1, 2, 0],
+     [1, 0, 0, 1, 2, 2, 0],
+     [2, 0, 0, 0, 1, 0, 0],
+     [2, 0, 0, 0, 1, 0, 0],
+     [1, 0, 0, 0, 2, 0, 0]]
+    board = Board()
+    board.board = b
+    player_1.set_strategies([1,1,1,1])
+    var_action = player_1.get_strategy(board)
+    array_result = [[0, 0, 0], [1, 12, 2], [2, 12, 3], 
+                    [3, 14, 4], [4, 0, 0], [5, 12, 3], [6, 12, 3]]
+    result = True
+    for x in var_action: 
+        position = array_result[x.position][0]
+        amount = array_result[x.position][1]
+        strategies_number = array_result[x.position][2]
+        if not(x.position == position and x.amount == amount 
+                and strategies_number == x.strategies_number):
+            result = False
+    assert(result)
+
+
+def test_get_strategy_0():
+    """ Check that get_strategy is working correctly
+    """
+    b = [[1, 0, 1, 2, 1, 1, 0],
+     [2, 0, 0, 2, 1, 2, 0],
+     [1, 0, 0, 1, 2, 2, 0],
+     [2, 0, 0, 0, 1, 0, 0],
+     [2, 0, 0, 0, 1, 0, 0],
+     [1, 0, 0, 0, 2, 0, 0]]
+    board = Board()
+    board.board = b
+    player_1.set_strategies([0,0,0,0])
+    var_action = player_1.get_strategy(board)
+    array_result = [[0, 1, 1], [1, 2, 2], [2, 2, 2], 
+                    [3, 2, 2], [4, 1, 1], [5, 3, 3], [6, 2, 2]]
+    result = True
+    for x in var_action: 
+        position = array_result[x.position][0]
+        amount = array_result[x.position][1]
+        strategies_number = array_result[x.position][2]
+        print(x.position,x.amount, x.strategies_number)
+        if not(x.position == position and x.amount == amount 
+                and strategies_number == x.strategies_number):
+            result = False
+    assert(result)
+
 
 def test_get_column_number():
     """ Check that get_column_number is working correctly
     """
-    pass
+    array_number = []
+    for i in range(0,7):
+        var_number = Number(i)
+        if(i == 2):
+            var_number.increase_strategy()
+            var_number.increase_strategy()
+        var_number.increase_strategy()
+        var_number.increase_amount()
+        array_number.append(var_number)
+    col = player_1.get_column_number(array_number)
+    col_result = 2
+    assert(col == col_result)
 
 def test_get_array_number():
     """ Check that get_column_number is working correctly
     """
-    array_number = []
-    var_number = Number(0)
-    array_number.append(var_number)
-    var_number = Number(1)
-    array_number.append(var_number)
-    var_number = Number(2)
-    array_number.append(var_number)
-    var_number = Number(3)
-    array_number.append(var_number)
-    var_number = Number(4)
-    array_number.append(var_number)
-    var_number = Number(5)
-    array_number.append(var_number)
-    var_number = Number(6)
-    array_number.append(var_number)
-
-    array_number_result = player_1.get_array_number()
-    #Ver como comparar listas
-    print(array_number, array_number_result)
-    assert(True)
+    array_result = [[0, 0, 0], [1, 0, 0], [2, 0, 0], 
+                    [3, 0, 0], [4, 0, 0], [5, 0, 0], [6, 0, 0]]
+    var_action = player_1.get_array_number()
+    result = True
+    for x in var_action: 
+        position = array_result[x.position][0]
+        amount = array_result[x.position][1]
+        strategies_number = array_result[x.position][2]
+        if not(x.position == position and x.amount == amount 
+                and strategies_number == x.strategies_number):
+            result = False
+    assert(result)
 
 
 def test_block_true():
