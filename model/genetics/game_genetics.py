@@ -5,15 +5,17 @@
 # Project: Connect 4
 # Author : Mariana Rojas S. 
 # E-mail: mari.semeraro27@gmail.com
-# Version: 0.0.0 
+# Modified: Katerine Molina Sánchez
+# Version: 0.0.1 
 
 # IMPORT SECTION
-from .board import Board
-from .player import Player
+from model.game.board import Board
+from model.game.player import Player
+from config.config import Config as cf 
 from copy import deepcopy
 
 
-class Game():
+class GameGenetics():
 
     def __init__(self, player_1, player_2):
         self.board = Board()
@@ -25,30 +27,23 @@ class Game():
         self.board.created_board()
         while (not self.is_winner()):
             if(self.board.is_full()):
-                print("** Empate **")
-                return
+                print("Empate")
+                return cf.TIE
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
-                print(self.turn("1"))
                 col = self.player_1.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 1)
             else:
-                print(self.turn("2"))
                 col = self.player_2.next_action(deepcopy(self.board))
                 self.board.set_value_cell(col, 2)
-        print(self.who_is_winner())
+        return self.who_is_winner()
 
-    def turn(self, num_player):
-        self.board.print_board()
-        return "Turno del Jugador " + num_player
-
+    
     def who_is_winner(self):
-        print("** Se acabo el juego **")
-        self.board.print_board()
         if (self.turn_player_1):
-            return "** Ganador Jugador 1 **"
+            return cf.WINNER_1
         else:
-            return "** Ganador Jugador 2 **"
+            return cf.WINNER_2
 
     def is_winner(self):
         last_mov = self.board.get_last_mov()

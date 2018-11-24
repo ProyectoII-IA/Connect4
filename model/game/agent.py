@@ -22,14 +22,17 @@ class Agent(Player):
 
     strategies = [0.80, 0.80, 0.80, 0.80]
 
-    def __init__(self, symb, symb_opp):
+    def __init__(self, symb, symb_opp, automatic = True):
         self.symb = symb
         self.symb_opp = symb_opp
+        self.automatic= automatic
         pass
 
     def next_action(self, board):
         win = self.win(board, self.symb)
         block = self.block(board, self.symb_opp)
+        if (not self.automatic):
+            continue_game = input("Presione una tecla para continuar: ")
         if (win >= 0):
             print("Ganar")
             col = win
@@ -64,7 +67,6 @@ class Agent(Player):
         for x in array_number: 
             if (x.strategies_number > max_strategies):
                 max_strategies = x.strategies_number
-            print(x.position,x.amount, x.strategies_number)
         for x in array_number: 
             if (x.strategies_number == max_strategies):
                 if (x.amount > max_amount):

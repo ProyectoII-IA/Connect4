@@ -1,5 +1,14 @@
-from model.test import print_res
+from model.genetics.genetics_algorithm import GeneticAlgorithm
 
-print_res()
+def main():
+
+    genetic = GeneticAlgorithm()
+    strategies = genetic.get_winner_information()
+    print(strategies)
+
+
+
+if __name__ == "__main__":
+    main()
 
 

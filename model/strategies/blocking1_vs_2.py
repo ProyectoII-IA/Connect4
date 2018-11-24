@@ -8,8 +8,8 @@
 # Version: 0.0.0 
 
 #IMPORT SECTION
-from .position import Number
-from .strategy import Strategy
+from model.strategies.position import Number
+from model.strategies.strategy import Strategy
 
 class Blocking2vsBlocking1(Strategy): 
     #Attributes------------------------
@@ -63,7 +63,7 @@ class Blocking2vsBlocking1(Strategy):
     def get_blocking1_action(self,board,array_number):
         array_blockers = self.get_blockers(board,1)
         return self.fill_numbers_value(array_blockers,array_number)
-        
+
     # @Method:GET_ACTION
     # @Description: return new movement using the board as reference.
     # @return: array of numbers
