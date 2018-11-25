@@ -43,7 +43,9 @@ class Horizontal_vertical(Strategy):
                 if not (board.is_fill_column(column)):
                     array_number[column].increase_amount(1) 
                     flags[column] = True
+        return self.validate_increase_strategy(flags, array_number)
 
+    def validate_increase_strategy(self, flags, array_number):
         for i in range(0, 7):
             if flags[i]:
                 array_number[i].increase_strategy()
