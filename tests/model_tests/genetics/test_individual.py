@@ -10,7 +10,8 @@
 #IMPORT SECTION 
 
 from model.genetics.individual import Individual
-
+from config.config import Config as cf
+from model.genetics.game_genetics import GameGenetics 
 # Fake agents
 
 agent_1 = ["agent1",0,1]
@@ -18,6 +19,9 @@ agent_2 = ["agent2",0,2]
 
 test_individual = Individual("agent1",0,"agent2",0)
 test_individual_1 = Individual("agent1_1",0,"agent2_1",0)
+
+array_stubs = []
+array_real = []
 
 def test_initialize_individual():
     individual = Individual(agent_1[0],1,agent_2[0],2)
@@ -121,9 +125,6 @@ def test_simple_crossover():
 
 # CROSSOVER TESTS------------------------------------------
 
-array_stubs = []
-array_real = []
-
 def create_crossover_stubs(agent_winner,agent_loser,probability):
     # Functions stubs
     get_winner_stub = lambda _: agent_winner
@@ -171,7 +172,7 @@ def change_crossover_methods(stubs):
 def test_simple_crossover_selection():
     agent_winner = ["agent1",2,0]
     agent_loser  = ["agent2",1,0]
-    stubs,real = create_crossover_stubs(agent_winner,agent_loser,0.70)
+    stubs,real = create_crossover_stubs(agent_winner,agent_loser,cf.MUTATION_PROBABILITY+10)
     #Change real methods
     Individual = change_crossover_methods(stubs)
     #Test of the function 
@@ -183,7 +184,7 @@ def test_simple_crossover_selection():
 def test_mutation_crossover_selection():
     agent_winner = ["agent1",2,0]
     agent_loser  = ["agent2",1,0]
-    stubs,real = create_crossover_stubs(agent_winner,agent_loser,0.05)
+    stubs,real = create_crossover_stubs(agent_winner,agent_loser,cf.MUTATION_PROBABILITY-0.01)
     #Change real methods
     Individual = change_crossover_methods(stubs)
     #Test of the function 
@@ -191,6 +192,93 @@ def test_mutation_crossover_selection():
     #recovery methods
     Individual = recovery_crossover_methods(real)
     assert(result1 == "MUTATION_CROSSOVER" )
+
+# FIT AGENTS TESTS------------------------------------------
+
+def create_fit_agents_stub(winner):
+
+    play_game_stub = lambda _: winner
+    array_stubs.append(play_game_stub)
+    play_game_real = GameGenetics.play_game
+    array_real.append(play_game_real)
+
+    return array_stubs,array_real
+
+def recovery_fit_agents_real(real):
+    GameGenetics.play_game = real.pop()
+    return GameGenetics
+
+def change_git_agents_stubs(stubs):
+    GameGenetics.play_game = stubs.pop()
+    return GameGenetics
+
+
+def test_fit_agents_winner_agent1():
+    agent_1 = ["agent1",0,0]
+    agent_2  = ["agent2",0,0]
+    temp_loop = cf.FIT_LOOP 
+    cf.FIT_LOOP = 3
+    stubs,real = create_fit_agents_stub(cf.WINNER_1)
+
+    GameGenetics = change_git_agents_stubs(stubs)
+
+
+    test_individual.agent_1 = agent_1
+    test_individual.agent_2 = agent_2
+
+    result = test_individual.fit_agents()
+    assert(result==1)
+    assert(test_individual.agent_1[1]==3)
+    assert(test_individual.agent_2[1]==0)
+
+    # recover variable 
+    cf.FIT_LOOP = temp_loop
+    GameGenetics = recovery_fit_agents_real(real)
+
+def test_fit_agents_winner_agent2():
+    agent_1 = ["agent1",0,0]
+    agent_2  = ["agent2",0,0]
+    temp_loop = cf.FIT_LOOP 
+    cf.FIT_LOOP = 3
+    stubs,real = create_fit_agents_stub(cf.WINNER_2)
+
+    GameGenetics = change_git_agents_stubs(stubs)
+
+
+    test_individual.agent_1 = agent_1
+    test_individual.agent_2 = agent_2
+
+    result = test_individual.fit_agents()
+    assert(result==1)
+    assert(test_individual.agent_2[1]==3)
+    assert(test_individual.agent_1[1]==0)
+
+    # recover variable 
+    cf.FIT_LOOP = temp_loop
+    GameGenetics = recovery_fit_agents_real(real)
+
+def test_fit_agents_winner_both():
+    agent_1 = ["agent1",0,0]
+    agent_2  = ["agent2",0,0]
+    temp_loop = cf.FIT_LOOP 
+    cf.FIT_LOOP = 3
+    stubs,real = create_fit_agents_stub(cf.TIE)
+
+    GameGenetics = change_git_agents_stubs(stubs)
+
+
+    test_individual.agent_1 = agent_1
+    test_individual.agent_2 = agent_2
+
+    result = test_individual.fit_agents()
+    assert(result==1)
+    assert(test_individual.agent_2[1]==3)
+    assert(test_individual.agent_1[1]==3)
+
+    # recover variable 
+    cf.FIT_LOOP = temp_loop
+    GameGenetics = recovery_fit_agents_real(real)
+    
 
 
 

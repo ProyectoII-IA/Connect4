@@ -37,6 +37,7 @@ class GeneticAlgorithm:
     # @Description: Initialize the first population with individual and random probabilities
     # @return: none
     def init_population(self,population_a):
+        self.population.clear()
         for index in range(population_a):
             new_agent_1 = Agent(1,2)
             new_agent_2 = Agent(2,1)  
@@ -59,16 +60,10 @@ class GeneticAlgorithm:
     # @Description: crossover of the last population
     # Example, the first individual is cross with the second best individual
     # @return: update population array 
-    def crossover_function(self,sorted_array):
-        p_length_half = int(cf.POPULATION_AMOUNT/2) # Only select the first middle of array
-        # Clear Population variable
-        self.population.clear()
-        array_1 = sorted_array[:p_length_half]
-        array_2 = sorted_array[1:p_length_half+1]
-        for individual_1,individual_2 in zip(array_1,array_2):
-            (new_ind_1, new_ind_2) = individual_1.crossover(individual_2)
-            self.population.append(new_ind_1)
-            self.population.append(new_ind_2)
+    def crossover_function(self,individual_1):
+        self.population.append(individual_1[0])
+        self.population.append(individual_1[1])
+        return individual_1
 
     # @Method:GET_WINNER_INFORMATION
     # @Description: generate a good winner using genetics algorithm 
@@ -77,11 +72,10 @@ class GeneticAlgorithm:
         counter = cf.GENERATION_AMOUNT
         fitness_function = lambda x : (x.fit_agents(),x)
         clear_function = lambda x : x[1]
+        crossover_function = lambda x,y : self.crossover_function(x.crossover(y))
+        p_half = int(len(self.population)/2)
         while counter > 0 : 
             print("Generación:",counter)
-            for i in self.population:
-                print(i.to_string())
-            print("----------------------------")
             #FITNESS FUNCTION
             array_fitness = list(map(fitness_function,self.population))
             #SORT BY  BEST WINNER
@@ -89,7 +83,9 @@ class GeneticAlgorithm:
             #CLEAR SORTED ARRAY
             sorted_fitness = list(map(clear_function,sorted_fitness))
             # CROSSOVER THE FIRST MIDDLE OF POPULATION
-            self.crossover_function(sorted_fitness)
+            #self.crossover_function(sorted_fitness)
+            self.population.clear()
+            list(map(crossover_function,sorted_fitness[:p_half], sorted_fitness[1:p_half+1]))
             counter-=1
         return self.get_winner_from_generation()
 

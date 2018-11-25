@@ -15,7 +15,7 @@ from config.config import Config as cf
 from copy import deepcopy
 
 
-class GameGenetics():
+class GameGenetics:
 
     def __init__(self, player_1, player_2):
         self.board = Board()
