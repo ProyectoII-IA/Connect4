@@ -9,9 +9,10 @@
 
 # IMPORT SECTION
 import argparse
-from ..model.game.agent import Agent
-from ..model.game.human import Human
-from ..model.game.player import Player
+from model.game.agent import Agent
+from model.game.human import Human
+from model.game.player import Player
+from model.game.game import Game
 
 
 
@@ -56,3 +57,8 @@ class Game_Controller():
             return [self.player_1, self.player_2, 0]
         else:
             return [self.player_1, self.player_2, 1]
+
+    def play_game(self):
+        players = self.get_config_players()        
+        self.game = Game(players[0],players[1])
+        self.game.play_game()

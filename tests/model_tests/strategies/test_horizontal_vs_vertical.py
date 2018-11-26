@@ -62,3 +62,25 @@ def test_get_action_vertical():
                 and strategies_number == x.strategies_number):
             result = False
     assert(result)
+
+def test_validate_increase_strategy():
+    """ Check that function validate_increase_strategy is working correctly
+    """
+    strategy = Horizontal_vertical(0, 1)
+    array = []
+    for i in range(0,7):
+        var_number = Number(i)
+        array.append(var_number)
+    array_result = [[0, 0, 1], [1, 0, 0], [2, 0, 0], 
+                    [3, 0, 1], [4, 0, 1], [5, 0, 0], [6, 0, 0]]
+    flags = [True, False, False, True, True, False, False]
+    var_action = strategy.validate_increase_strategy(flags, array)
+    result = True
+    for x in var_action: 
+        position = array_result[x.position][0]
+        amount = array_result[x.position][1]
+        strategies_number = array_result[x.position][2]
+        if not(x.position == position and x.amount == amount 
+                and strategies_number == x.strategies_number):
+            result = False
+    assert(result)

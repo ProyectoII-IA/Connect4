@@ -28,14 +28,18 @@ def test_turn_player_1():
     """
     turn = "Turno del Jugador 1"
     turn_result = game.turn("1")
+    turn_result_2 = game.turn("2")
     assert(turn == turn_result)
+    assert(not turn == turn_result_2)
 
 def test_turn_player_2():
     """ Check that turn of the player is working correctly
     """
     turn = "Turno del Jugador 2"
-    turn_result = game.turn("2")
-    assert(turn == turn_result)
+    turn_result = game.turn("1")
+    turn_result_2 = game.turn("2")
+    assert(not turn == turn_result)
+    assert(turn == turn_result_2)
 
 
 def test_who_is_winner_player_1():
@@ -44,7 +48,10 @@ def test_who_is_winner_player_1():
     game.turn_player_1 = True
     winner = "** Ganador Jugador 1 **"
     winner_game = game.who_is_winner()
+    game.turn_player_1 = False
+    winner_game_2 = game.who_is_winner()
     assert(winner == winner_game)
+    assert(not winner == winner_game_2)
 
 
 def test_who_is_winner_player_2():
@@ -53,7 +60,10 @@ def test_who_is_winner_player_2():
     game.turn_player_1 = False
     winner = "** Ganador Jugador 2 **"
     winner_game = game.who_is_winner()
+    game.turn_player_1 = True
+    winner_game_2 = game.who_is_winner()
     assert(winner == winner_game)
+    assert(not winner == winner_game_2)
 
 
 def test_is_winner_True():
