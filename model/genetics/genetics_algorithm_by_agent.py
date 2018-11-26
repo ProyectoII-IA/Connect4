@@ -43,7 +43,7 @@ class GeneticAlgorithmByAgent:
     def init_population(self,population_a):
         self.population.clear()
         for index in range(population_a):
-            new_agent = Agent(1,2)
+            new_agent = Agent(1,2,True)
             new_agent.set_strategies(self.get_random_probabilities())
             new_individual =  IndividualByAgent(new_agent)
             self.population.append(new_individual)

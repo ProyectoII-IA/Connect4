@@ -60,7 +60,7 @@ class IndividualByAgent:
     # @return: Individual object
     def get_first_best_agent(self,agent_possibilities,agent_cross,min_games = cf.MIN_GAMES):
         for strategies in agent_possibilities:
-            agent = Agent(1,2)
+            agent = Agent(1,2,True)
             agent.strategies =list(strategies)
             #parent 1
             game_1,ties = self.get_won_games_agent(agent,self.agent)

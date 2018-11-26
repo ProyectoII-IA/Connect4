@@ -34,10 +34,10 @@ class Agent(Player):
         if (not self.automatic):
             continue_game = input("Presione una tecla para continuar: ")
         if (win >= 0):
-            print("Ganar")
+            #print("Ganar")
             col = win
         elif (block >= 0):
-            print("Bloquear")
+            #print("Bloquear")
             col = block
         else:
             array_number = self.get_strategy(board)
@@ -97,3 +97,7 @@ class Agent(Player):
 
     def set_strategies(self, strategies):
         self.strategies = strategies
+
+    def set_symbols(self,symb,symb_opp):
+        self.symb = symb
+        self.symb_opp = symb_opp
