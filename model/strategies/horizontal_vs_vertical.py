@@ -30,7 +30,7 @@ class Horizontal_vertical(Strategy):
 
     def get_action(self, board, array_number):
         random = self.get_random_number()
-        positions_symbol = board.get_cells_symbol(1)
+        positions_symbol = board.get_cells_symbol(self.symbol)
         flags = [False, False, False, False, False, False, False]
         for row, column in positions_symbol:
             if random <= self.probability:  # Horizontal (!column)

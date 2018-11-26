@@ -41,7 +41,7 @@ Repositorio: https://github.com/ProyectoII-IA/Connect4
 * Individual:
 
 ------------------------------------------------
-## Estrategía de solución del juego
+## Estrategia de solución del juego
 
 * Configuración: el inicio del juego está determinado por la configuración que se le envie por consola al juego, en este sentido, el primer paso de la configuración es el parseo de los parámetros enviados al programa (ver el manual de usuario para comprender la forma en que los parámetros deben ser ingresados), según el valor de los mismos se determina el segundo paso de la configuración, en este caso, la instanciación de los jugadores, y por consecuente, el tercer y último paso de la configuración, la instanciación e inicio del juego como tal.
 
@@ -51,16 +51,50 @@ Repositorio: https://github.com/ProyectoII-IA/Connect4
 
 
 ------------------------------------------------ 
-## Estrategías de movimientos de los agentes
+## Estrategias de movimientos de los agentes
 
-* Recorda poner el pseudo-codigo de las funciones, eso lo pide la documentación =(
 * Blocking 2 vs 1:
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia bloquear_2, al contrario si N está entre X y 1 se usa la estrategia bloquear_1.
+La estrategia bloquear_2 consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha bloquee dos fichas consecutivas del jugador oponente, lo que es decir, caiga en una posición del tablero que sea secuencial a dos fichas del oponente.
+La estrategia bloquear_1 funciona de manera similar a la estrageia anterior, la única diferencia es que busca bloquear una ficha del jugador oponente.
+
+Pseudocódigo:
 * Center vs Extremity:
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia centro, al contrario si N está entre X y 1 se usa la estrategia extremo.
+La estrategia centro consiste en seleccionar las columnas que cumplan el requisito de estar en el centro del tablero, lo que es decir, sea la columna 3, 4 ó 5.
+La estrategia extremo consiste en seleccionar las columnas que cumplan el requisito de estar en el extremo del tablero, lo que es decir, sea la columna 1, 2, 6 ó 7.
+
+Pseudocódigo:
+function get_action(board, array_number) returns a array of positions
+    inputs: board, a...
+            array_number, a...
+    random <- a random number between 0 - 1
+    center_columns <- an array of the columns center numbers
+    extremity_columns <- an array of the columns extremity numbers
+    if random is the probability of center then
+        columns <- center_columns
+    else
+        columns <- extremity_columns
+    for i in columns do
+        if board is not fill in column i then 
+            increase the amount and the strategy of the i in array_number
+    return array_number
 * Sequential vs Space:
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial.
+
+La secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
+La estrategia consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
+
+Pseudocódigo:
 * Horizontal vs Vertical:
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia horizontal, al contrario si N está entre X y 1 se usa la estrategia vertical.
+La estrategia horizontal consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar no sea la misma que la columna en la que se encuentra la ficha seleccionada.
+La estrategia vertical consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar sea la misma que la columna en la que se encuentra la ficha seleccionada.
+
+Pseudocódigo:
 
 ------------------------------------------------ 
-## Estrategía de solución de Algortimos Genéticos
+## Estrategia de solución de Algortimos Genéticos
 
 * Configuración: el inicio del programa está determinado por la configuración que se le envie por consola al algoritmo genético, en este sentido, el primer paso de la configuración es el parseo de los parámetros enviados al programa (ver el manual de usuario para comprender la forma en que los parámetros deben ser ingresados), según el valor de los mismos se determina el segundo  y último paso de la configuración, en este caso, la instanciación del objeto Genetics_Algorithm, con el número de generaciones y la cantidad de individuos que pasan de una generación a otra. 
 
