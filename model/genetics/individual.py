@@ -34,7 +34,7 @@ class Individual:
             return self.agent_2
 
     def get_loser_agent(self):
-        if self.agent_1[1] < self.agent_2[1]:
+        if self.agent_1[1] <= self.agent_2[1]:
             return self.agent_1
         else:
             return self.agent_2
@@ -43,16 +43,16 @@ class Individual:
     # @Description: cross the individual with another when mutation was activated
     # @return: two individuals instance
     def mutation_crossover(self,agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2):
-        new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
-        new_individual_2 = Individual(agent_winner_2[0],agent_winner_2[2],agent_loser_1[0],agent_loser_1[2]+agent_loser_1[1])
+        new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2]+agent_winner_1[1],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
+        new_individual_2 = Individual(agent_winner_2[0],agent_winner_2[2]+agent_winner_2[1],agent_loser_1[0],agent_loser_1[2]+agent_loser_1[1])
         return new_individual_1,new_individual_2
 
     # @Method:SIMPLE_CROSSOVER
     # @Description: cross the individual with another getting the winners first and the loser in separeted individuals
     # @return: two individuals instance
     def simple_crossover(self,agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2):
-        new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2],agent_winner_2[0],agent_winner_2[2]+agent_winner_2[1])
-        new_individual_2 = Individual(agent_loser_1[0],agent_loser_1[2],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
+        new_individual_1 = Individual(agent_winner_1[0],agent_winner_1[2]+agent_winner_1[1] ,agent_winner_2[0],agent_winner_2[2]+agent_winner_2[1])
+        new_individual_2 = Individual(agent_loser_1[0],agent_loser_1[2]+agent_loser_1[1],agent_loser_2[0],agent_loser_2[2]+agent_loser_2[1])
         return new_individual_1,new_individual_2
 
     # @Method:CROSSOVER
@@ -63,7 +63,7 @@ class Individual:
         agent_winner_2 = individual_2.get_winner_agent()
         agent_loser_1  = self.get_loser_agent()
         agent_loser_2  = individual_2.get_loser_agent()
-        if cf.MUTATION_PROBABILITY < rd.random(): # random return 0 to 0.99 number
+        if cf.MUTATION_PROBABILITY > self.get_random_number(): # random return 0 to 0.99 number
             return self.mutation_crossover(agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2)
         else:
             return self.simple_crossover(agent_winner_1,agent_winner_2,agent_loser_1,agent_loser_2)
@@ -73,7 +73,6 @@ class Individual:
     # @return: win percent 
     def fit_agents(self):
         counter = cf.FIT_LOOP
-        game = GameGenetics(self.agent_1[0],self.agent_2[0])
         while counter > 0:
             game = GameGenetics(self.agent_1[0],self.agent_2[0])
             winner = game.play_game()
@@ -94,6 +93,9 @@ class Individual:
     def to_string(self):
         return "Agent 1" + str(self.agent_1[0].strategies)+" Agent 2 "+ str(self.agent_2[0].strategies)
     
+
+    def get_random_number(self):
+        return rd.random()
             
 
 
