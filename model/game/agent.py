@@ -22,7 +22,7 @@ class Agent(Player):
 
     strategies = [0.80, 0.80, 0.80, 0.80]
 
-    def __init__(self, symb, symb_opp, automatic = True):
+    def __init__(self, symb, symb_opp, automatic = False):
         self.symb = symb
         self.symb_opp = symb_opp
         self.automatic= automatic
