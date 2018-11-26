@@ -109,6 +109,57 @@ function get_action(board, array_number) returns a array of positions
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial. La estrategia secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. La estrategia espacial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
 
 Pseudocódigo:
+
+```
+function get_action(board,array_number) return new movement using the board as reference.
+    inputs: board, the state of the game 
+            array_number,
+
+    var_random -> a random number 
+    if var_random < probability:
+        return get_sequential_action(board, array_number)
+    else:
+        return get_space_action(board, array_number)
+
+function get_sequential_action(board, array_number) return new movement using the board as reference
+    inputs: board, the state of the game
+            array_number, an array of objects position
+
+    array_neighbors -> all neighbors close to own element on the board
+    for neighbor in array_neighbors:
+        if neighbor has neighbors:
+            array_number[neighbor[0]].increase_amount(neighbor[1]) # cost of one
+            array_number[neighbor[0]].increase_strategy()
+    return array_number
+    
+function get_space_action(board,array_number) return new movement using the board as reference
+    inputs: board, the state of the game
+            array_number: an array of objects position
+    
+    array_neighbors -> all neighbors close to own element on the board
+    for neighbor in array_neighbors:
+        if neighbor[1]==0:
+            array_number[neighbor[0]].increase_amount()
+            array_number[neighbor[0]].increase_strategy()
+    return array_number    
+   
+function get_neighbors(board) return an array with tuples of neighbors
+    inputs: board, the state of the game 
+    
+    array_neighbors -> array of pairs for each column [(x,0),(x1,0)]
+    array_positions -> array of cells positions that contain a specific symbol 
+    array_temp_position -> 
+    for (row,col) in array_positions:
+        for index in range(col-1,col+2): 
+            array_temp_position.append((board.get_empty_element(index),index))
+            for (row_p,col_p) in array_temp_position: #row prime and column prime
+                if self.validate_sequential_position(row_p,row): # row validation
+                    (temp_col,temp_amount) = array_neighbors[col_p]
+                    array_neighbors[col_p] = (temp_col,temp_amount+1)
+        array_temp_position.clear()
+    return array_neighbors 
+```
+
 * Horizontal vs Vertical:
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia horizontal, al contrario si N está entre X y 1 se usa la estrategia vertical. La estrategia horizontal consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar no sea la misma que la columna en la que se encuentra la ficha seleccionada. La estrategia vertical consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar sea la misma que la columna en la que se encuentra la ficha seleccionada.
 
