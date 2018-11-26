@@ -57,24 +57,54 @@ Repositorio: https://github.com/ProyectoII-IA/Connect4
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia bloquear_2, al contrario si N está entre X y 1 se usa la estrategia bloquear_1. La estrategia bloquear_2 consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha bloquee dos fichas consecutivas del jugador oponente, lo que es decir, caiga en una posición del tablero que sea secuencial a dos fichas del oponente. La estrategia bloquear_1 funciona de manera similar a la estrageia anterior, la única diferencia es que busca bloquear una ficha del jugador oponente.
 
 Pseudocódigo:
+```
+function get_action(board, array_number) return array of number object 
+    inputs: board, structure of the game
+            array_number, a array of objects position
+    random <- a random number between 0 - 1
+    if random >= probability_blocking_2 then
+        n <- 2
+    else
+        n <- 1
+    array_blockers <- array with all possibilities of block the opponent with n sequential pieces
+    array_blockers <- get_blockers(board, n)
+    for col in array_blockers do
+        increase the amount and the strategy of the col in array_number
+    return array_number
+```
+```
+function get_blockers(board, max_connect) return all possible blockers near to opponent symbol
+    inputs: board, structure of the game
+            max_connect, a number according to blocking 2 or 1
+    array_blockers <- []
+    for col = 0 to 7 do
+        if board is not fill in col then
+            board <- insert symbol opponent in col
+            if board with last_insert has winner with max_connect then
+                array_blockers <- insert col
+            board <- delete last_insert
+    return array_blockers
+```
 * Center vs Extremity:
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia centro, al contrario si N está entre X y 1 se usa la estrategia extremo. La estrategia centro consiste en seleccionar las columnas que cumplan el requisito de estar en el centro del tablero, lo que es decir, sea la columna 3, 4 ó 5. La estrategia extremo consiste en seleccionar las columnas que cumplan el requisito de estar en el extremo del tablero, lo que es decir, sea la columna 1, 2, 6 ó 7.
 
 Pseudocódigo:
+```
 function get_action(board, array_number) returns a array of positions
-    inputs: board, a...
-            array_number, a...
+    inputs: board, structure of the game
+            array_number, a array of objects position
     random <- a random number between 0 - 1
     center_columns <- an array of the columns center numbers
     extremity_columns <- an array of the columns extremity numbers
-    if random is the probability of center then
+    if random >= probability_center then
         columns <- center_columns
     else
         columns <- extremity_columns
-    for i in columns do
-        if board is not fill in column i then 
-            increase the amount and the strategy of the i in array_number
+    for col in columns do
+        if board is not fill in col then 
+            increase the amount and the strategy of the col in array_number
     return array_number
+```
 * Sequential vs Space:
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial. La estrategia secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. La estrategia espacial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
 
@@ -83,7 +113,23 @@ Pseudocódigo:
 Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia horizontal, al contrario si N está entre X y 1 se usa la estrategia vertical. La estrategia horizontal consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar no sea la misma que la columna en la que se encuentra la ficha seleccionada. La estrategia vertical consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar sea la misma que la columna en la que se encuentra la ficha seleccionada.
 
 Pseudocódigo:
-
+```
+function get_action(board, array_number) returns a array of positions
+    inputs: board, structure of the game
+            array_number, a array of objects position
+    random <- a random number between 0 - 1
+    positions_symbol <- array of the positions in the board of the symbol
+    for row, col in positions_symbol do
+        if random >= probability_horizontal then
+            for i = 0 to 6 do
+                if i != col then
+                    if board is not fill in i then 
+                        increase the amount of the i in array_number
+        else
+            if board is not fill in col then 
+                increase the amount of the col in array_number
+    return array_number
+```
 ------------------------------------------------ 
 ## Estrategia de solución de Algortimos Genéticos
 
