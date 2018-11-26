@@ -54,15 +54,11 @@ Repositorio: https://github.com/ProyectoII-IA/Connect4
 ## Estrategias de movimientos de los agentes
 
 * Blocking 2 vs 1:
-Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia bloquear_2, al contrario si N está entre X y 1 se usa la estrategia bloquear_1.
-La estrategia bloquear_2 consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha bloquee dos fichas consecutivas del jugador oponente, lo que es decir, caiga en una posición del tablero que sea secuencial a dos fichas del oponente.
-La estrategia bloquear_1 funciona de manera similar a la estrageia anterior, la única diferencia es que busca bloquear una ficha del jugador oponente.
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia bloquear_2, al contrario si N está entre X y 1 se usa la estrategia bloquear_1. La estrategia bloquear_2 consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha bloquee dos fichas consecutivas del jugador oponente, lo que es decir, caiga en una posición del tablero que sea secuencial a dos fichas del oponente. La estrategia bloquear_1 funciona de manera similar a la estrageia anterior, la única diferencia es que busca bloquear una ficha del jugador oponente.
 
 Pseudocódigo:
 * Center vs Extremity:
-Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia centro, al contrario si N está entre X y 1 se usa la estrategia extremo.
-La estrategia centro consiste en seleccionar las columnas que cumplan el requisito de estar en el centro del tablero, lo que es decir, sea la columna 3, 4 ó 5.
-La estrategia extremo consiste en seleccionar las columnas que cumplan el requisito de estar en el extremo del tablero, lo que es decir, sea la columna 1, 2, 6 ó 7.
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia centro, al contrario si N está entre X y 1 se usa la estrategia extremo. La estrategia centro consiste en seleccionar las columnas que cumplan el requisito de estar en el centro del tablero, lo que es decir, sea la columna 3, 4 ó 5. La estrategia extremo consiste en seleccionar las columnas que cumplan el requisito de estar en el extremo del tablero, lo que es decir, sea la columna 1, 2, 6 ó 7.
 
 Pseudocódigo:
 function get_action(board, array_number) returns a array of positions
@@ -80,16 +76,11 @@ function get_action(board, array_number) returns a array of positions
             increase the amount and the strategy of the i in array_number
     return array_number
 * Sequential vs Space:
-Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial.
-
-La secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
-La estrategia consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial. La estrategia secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. La estrategia espacial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
 
 Pseudocódigo:
 * Horizontal vs Vertical:
-Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia horizontal, al contrario si N está entre X y 1 se usa la estrategia vertical.
-La estrategia horizontal consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar no sea la misma que la columna en la que se encuentra la ficha seleccionada.
-La estrategia vertical consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar sea la misma que la columna en la que se encuentra la ficha seleccionada.
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia horizontal, al contrario si N está entre X y 1 se usa la estrategia vertical. La estrategia horizontal consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar no sea la misma que la columna en la que se encuentra la ficha seleccionada. La estrategia vertical consiste en seleccionar las columnas que cumplan el requisito de dada una posición (fila, columna) de una ficha, la columna a seleccionar sea la misma que la columna en la que se encuentra la ficha seleccionada.
 
 Pseudocódigo:
 
