@@ -27,7 +27,7 @@ class GameGenetics:
         self.board.created_board()
         while (not self.is_winner()):
             if(self.board.is_full()):
-                print("Empate")
+                #print("Empate")
                 return cf.TIE
             self.turn_player_1 = not self.turn_player_1
             if (self.turn_player_1):
