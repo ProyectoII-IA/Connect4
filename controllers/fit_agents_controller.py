@@ -9,6 +9,8 @@
 
 # IMPORT SECTION
 import argparse
+from model.genetics.genetics_algorithm_by_agent import GeneticAlgorithmByAgent
+from model.genetics.genetics_algorithm import GeneticAlgorithm
 
 
 class Fit_Agents_Controller():
@@ -17,6 +19,7 @@ class Fit_Agents_Controller():
         self.generations = 0
         self.generation_survivor = 0
         self.config_agents()
+        #self.genectic2 = GeneticAlgorithm()
 
     # Methods-------------------------
     # @Method: GET_CONFIG
@@ -39,3 +42,7 @@ class Fit_Agents_Controller():
         args = parser.parse_args()
         self.generations = args.generations
         self.generation_survivor = args.generation_survivor
+
+    def get_agent(self):
+        parameters = self.get_config()
+        self.genectic1 = GeneticAlgorithmByAgent(parameters[0],parameters[1])

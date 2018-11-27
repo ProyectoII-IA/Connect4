@@ -3,6 +3,8 @@ from model.genetics.genetics_algorithm_by_agent import GeneticAlgorithmByAgent
 from datetime import datetime
 def main():
 
+
+
     """ genetic = GeneticAlgorithm()
     strategies = genetic.get_winner_information()
     print(strategies) """
