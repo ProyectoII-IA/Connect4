@@ -106,7 +106,7 @@ function get_action(board, array_number) returns a array of positions
     return array_number
 ```
 * Sequential vs Space:
-Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial. La estrategia secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. La estrategia espacial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual.
+Dada una probabilidad X, se genera un número aleatorio N, si N está entre 0 y X se usa la estrategia secuencial, al contrario si N está entre X y 1 se usa la estrategia espacial. La estrategia secuencial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha sea consecutiva a una o más fichas del jugador actual, lo que es decir, caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. La estrategia espacial consiste en seleccionar las columnas que cumplan el requisito de si echamos una ficha en dicha columna ésta ficha no sea consecutiva a una o más fichas del jugador actual, lo que es decir, no caiga en una posición del tablero que sea secuencial a una o más fichas del jugador actual. En ambas estrategias se analizan los vecinos con búsqueda local y según el criterio se selecciona la posibilidad de usar un determinado vecino dado por la búsqueda.
 
 Pseudocódigo:
 
@@ -192,13 +192,93 @@ function get_action(board, array_number) returns a array of positions
 
 * Configuración: el inicio del programa está determinado por la configuración que se le envie por consola al algoritmo genético, en este sentido, el primer paso de la configuración es el parseo de los parámetros enviados al programa (ver el manual de usuario para comprender la forma en que los parámetros deben ser ingresados), según el valor de los mismos se determina el segundo  y último paso de la configuración, en este caso, la instanciación del objeto Genetics_Algorithm, con el número de generaciones y la cantidad de individuos que pasan de una generación a otra. 
 
-* Aqui la explicación de Katherine
+* Creación de Individuos: Para seguir el plantemiento básico se crean dos individuos del tipo agente cuya función es la de trabajar como jugadores. La creación de agentes fue descrita anteriorimente. Se crea esta clase en particular debido a la necesidad de crear métodos y llevar contadores que ayudaran al algoritmo a crear generaciones cada vez más óptima. En la creación del individuo se tomarán 3 metodos esenciales los cuales son 
+
+**Método de fitness para un individuo particular**: Este método recibirá una lista de individuos con los cuales jugará. El individuo en instancia jugará n veces donde n será el tamaño de la lista de individuos. Para optimizar la ejecución del algoritmo sólo se toma en cuenta la premisa que un individuo sólo competirá 1 vez con otro individuo en la misma generación, debido a esto en cada jugada se actualizaran los valores de gane o perdida de cada individuo en juego, en la clase se manejaran las variable "won_games" y "total_games", donde una se encargará de guardar el valor de juegos y ganados y el otro la cantidad de juego respectivamente. 
+
+Pseudocódigo: 
+
+``` 
+funcion fitness():
+        entradas: lista_oponentes, agente_actual 
+        for oponente in lista_oponentes:
+            jugar(agente_actual,oponte)
+            if si_ganador_es_1:
+                jugador_1_ +=1 # Aumenta puntaje
+            elif si ganador_es_2:
+                jugador_1_ +=1 
+            judador_1_juegos +=1
+            judador_2_juegos+=1 
+        salidas: lista de oponentes actualizada
+``` 
+
+**Método de crossover para un individuo particular**: En la función del crossover se especifica el cruce entre dos Individuos particulares. Para realizar el cruce, se realiza un cruce inteligente tomando únicamente un heredero que sea capaz de vencer a los Individuos padres para esto, se obtienen las combinaciones entre las estrategias de los dos Individuos y se realiza una competencia interna para obtener un hijo ganador, por optimización debido a la cantidad de combinaciones, se toma el primer hijo que cumpla con los requisitos.
+
+Pseudocódigo:
+
+```
+funcion crossover():
+    Entradas: agente_cruce,agente_actual
+        strategias_agent1 = agente_actual.strategias
+        strategias_agente_cruce= agente_cruce_estrategias
+        combinaciones = combinaciones(strategias_agent1,strategias_agente_cruce)
+        revolver(combinaciones)
+        obtener_mejor_individuo(combinaciones,agente_cruce)
+    Salidas: Un individuo nuevo
+
+``` 
+**Método de mutación**: La mutación se basará en una probabilidad definida junto con el algoritmo. La mutación se define como un cambio aleatorio en algún elemente de probabilidad de estrategias. Se selecciona cuál estrategia va a mutar aleatoriamente y se aumenta según un parametro predefino de aumento, este paramétro se puede utilizar para optimizar la definición del algortimo. 
+
+Pseudocódigo:
+
+```
+funcion mutation():
+        entradas: agente
+        estrategias = obtener_estrategias_agente
+        nueva_probabilidad = obtener_random_estretegia
+        cambiar_estrategia(aumeto_predefinido+nueva_probabilidad)
+        salidas: agente mutado
+
+```
+
+* Algortimo génetico: La definición principal de nuestro algoritmo génetico se basa en el siguiente descripción de flujo.
+
+```
+    1. Inicialización_de_la_población 
+    2. Cruce de cada elemento de la población con  los demás elementos de la población 
+    3. Aplicar la función fitness
+    4. Ordenar el resultado de mejor a peor individuo 
+    5. Limitar siguiente generación
+
+```
+
+pseudocodigo:
+``` 
+ funcion algortimo_genetico()
+    entradas: generacion, poblacion,limite
+    Repetir generacion:
+        nueva_generacion -> cruzar_poblacion(poblacion)
+        generacion_fitness -> applicar_fitness(nueva_generacion)
+        generacion_ordenada-> ordenar_resultado_por_fitness(generacion_fitness)
+        poblacion =  limitar_generacion(generacion_ordenad, limite)
+    salidas: primer elemento de la última generación
+```
+
+
+Después de la terminación de este ciclo dado por n generaciones se obtiene el mejor elemento de la última generación y se devuelve como resultado. 
+
+
 
 ------------------------------------------------ 
 ## Cobertura de las pruebas
 
 * Revisar la carpeta htmlcov (en la raíz del proyecto) lugar donde se encuentra el archivo index.html con el reporte completo de las pruebas realizadas
 
+Generación de cobertura: 
+``` 
+ py.test --cov-report html --cov=model tests/
+```
+Nota: Algunas no fueron probadas debido a la naturaleza de la función la cual fue considerada como innecesaria. 
 ------------------------------------------------ 
 ## Distribución de trabajo realizado y notas
 
