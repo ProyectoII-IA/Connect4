@@ -16,17 +16,19 @@ from model.genetics.genetics_algorithm import GeneticAlgorithm
 class Fit_Agents_Controller():
 
     def __init__(self):
+        self.population = 0
         self.generations = 0
-        self.generation_survivor = 0
+        self.limiter = 0
+        self.mutation = 0
         self.config_agents()
         #self.genectic2 = GeneticAlgorithm()
 
     # Methods-------------------------
     # @Method: GET_CONFIG
-    # @Description: Return the configurations of generations and
-    #               generation_survivor take from console
+    # @Description: Return the configurations of population, generations,
+    #               limiter and mutation
     def get_config(self):
-        return [self.generations, self.generation_survivor]
+        return [self.population, self.generations, self.limiter, self.mutation]
 
     # Methods-------------------------
     # @Method: CONFIG_AGENTS
@@ -35,14 +37,21 @@ class Fit_Agents_Controller():
     def config_agents(self):
         parser = argparse.ArgumentParser(description='Configuración del ' +
                                                      'Algoritmo Genético.')
-        parser.add_argument("-ge", "--generations", type=int,
-                            help="Define la cantidad de generaciones")
-        parser.add_argument("-gs", "--generation-survivor", type=int,
-                            help="Cantidad de sobrevivientes por generación")
+        parser.add_argument("-p", "--population", type=int,
+                            help="Define la población inicial")
+        parser.add_argument("-g", "--generations", type=int,
+                            help="Cantidad de generaciones")
+        parser.add_argument("-l", "--limiter", type=int,
+                            help="Cantidad de individuos que pasan de una población a otra")
+        parser.add_argument("-m", "--mutation", type=float,
+                            help="Define la probabilidad de mutación")
         args = parser.parse_args()
+        self.population = args.population
         self.generations = args.generations
-        self.generation_survivor = args.generation_survivor
+        self.limiter = args.limiter
+        self.mutation = args.mutation
 
     def get_agent(self):
         parameters = self.get_config()
         self.genectic1 = GeneticAlgorithmByAgent(parameters[0],parameters[1])
+        print('"'+ str(self.genectic1.get_winner_information(parameters[2],parameters[3])) + '"')

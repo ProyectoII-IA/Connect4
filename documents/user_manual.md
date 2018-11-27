@@ -34,10 +34,12 @@
 
 ### Ejecución
 - Algoritmo genético: lo primero es definir las opciones de configuración para la ejecución del mismo las cuales son:
-	* -ge o --generations: identifica la cantidad de generaciones con las que el algoritmo se va a ejecutar.
-	* -gs o --generation-survivor: identifica el número de individuos que pasan de una generación a otra.
+	* -p o --population: identifica la población inicial del algortimo.
+	* -g o --generatios: identifica el número de generaciones con las cuales se ejecutara el algoritmo.
+	* -l o --limiter: identifica la cantidad del individuos que pasan de una generación a otra.
+	* -m o --mutation: responde a la probabilidad de mutación de un individuo.
 
 ### Ejemplos de Ejecución
 
-- python main_fit_agents.py -ge 50 -gs 4
-- python main_fit_agents.py --generations 50 --generation-survivor 4
+- python main_fit_agents.py -p 10 -g 5 -l 5 -m 0.10
+- python main_fit_agents.py --population 10 --generations 5 --limiter 5 --mutation 0.10
