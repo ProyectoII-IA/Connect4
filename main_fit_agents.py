@@ -16,6 +16,6 @@ def main():
     controller = Fit_Agents_Controller()
     controller.get_agent()
 
-if _name_ == "_main_":
+if __name__ == "_main_":
     main()
     
