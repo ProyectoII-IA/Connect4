@@ -18,7 +18,11 @@ class Human(Player):
         pass
 
     def next_action(self, board):
-        col = int(input("Ingrese la columna a jugar: "))
+        col = input("Ingrese la columna a jugar: ")
+        try:
+            col = int(col)
+        except ValueError:
+            return self.next_action(board)
         col = col - 1
         if (self.validate_action(board, col)):
             return col

@@ -13,7 +13,7 @@ from model.game.human import Human
 from model.game.agent import Agent
 
 player_1 = Human()
-player_2 = Agent(2, 1)  # 2 symbol of the agent, 1 symbol of the opponent
+player_2 = Agent(2, 1, True)  # 2 symbol of the agent, 1 symbol of the opponent
 game = Game(player_1, player_2)
 game.board.created_board()
 
