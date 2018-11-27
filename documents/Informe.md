@@ -278,7 +278,7 @@ Generación de cobertura:
 ``` 
  py.test --cov-report html --cov=model tests/
 ```
-Nota: Algunas no fueron probadas debido a la naturaleza de la función la cual fue considerada como innecesaria. 
+* Nota: Algunas no fueron probadas debido a la naturaleza de la función la cual fue considerada como innecesaria. 
 ------------------------------------------------ 
 ## Distribución de trabajo realizado y notas
 
