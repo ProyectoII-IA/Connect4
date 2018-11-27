@@ -52,10 +52,6 @@ class GeneticAlgorithmByAgent:
     # @Description: select the best winner for the last population
     # @return: agent with best strategies
     def get_winner_from_generation(self):
-        if len(self.population)==2:
-            winner = self.population[0].fit_agent([self.population[1]])
-            if winner==0:
-                return self.population[1].agent.strategies
         return self.population[0].agent.strategies
 
     # @Method:FITNESS_FUNCTION

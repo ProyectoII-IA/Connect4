@@ -71,20 +71,18 @@ class IndividualByAgent:
         if self.won_games >= agent_cross.won_games:
             return IndividualByAgent(self.agent)
         else:
-            return IndividualByAgent(agent_cross.agent1)
+            return IndividualByAgent(agent_cross.agent)
 
     # @Method:SIMPLE_CROSSOVER
     # @Description: cross the individual with another getting the winners first and the loser in separeted individuals
     # @return: two individuals instance
-    def simple_crossover(self,agent_cross,optimal=False):
+    def simple_crossover(self,agent_cross,crossover_limit=cf.CROSSOVER_LIMITER,optimal=False):
         probabilities_1 = self.agent.strategies
         probabilities_2 = agent_cross.agent.strategies
         agent_possibilities = list(itertools.product(probabilities_1,probabilities_2,probabilities_1,probabilities_2))
         rd.shuffle(agent_possibilities)
-        agent_possibilities = agent_possibilities[:cf.CROSSOVER_LIMITER] 
-        #agent_possibilities = np.array(np.meshgrid(probabilities_1,probabilities_2))
-        if not optimal:
-            return self.get_first_best_agent(agent_possibilities,agent_cross)
+        agent_possibilities = agent_possibilities[:crossover_limit] 
+        return self.get_first_best_agent(agent_possibilities,agent_cross)
         #else:
          #   return self.get_optimal_best_agent(agent_possibilities)
     
@@ -116,7 +114,7 @@ class IndividualByAgent:
             winner,ties = self.get_won_games_agent(self.agent,agent.agent,1)
             if winner == 1:
                 self.won_games +=1 
-            elif ties <= 0:
+            elif ties == 0:
                 agent.won_games +=1
             agent.total_games+=1
             self.total_games+=1 
