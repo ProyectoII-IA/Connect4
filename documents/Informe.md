@@ -36,9 +36,9 @@ Repositorio: https://github.com/ProyectoII-IA/Connect4
 * Position: clase que permite llevar el control de los diferentes filtros de estrategías que se aplican a un estado en particular del juego (board) con el único objetivo de determinar la o las columnas que ofrecen una mejor jugada. Esta clase es solo utilizada por las instancias de Agent.
 
 ### Clases del algoritmo genético
-* Game_Genetics:
-* Genetics_Algorithm:
-* Individual:
+* Game_Genetics: Clase genérica adaptada para el algortimo genético, con la cual se logra la competencia entre dos agentes dados. Esta clase es de poco interes debido a que solo es una adaptación de la clase "Game" en game.
+* Genetics_Algorithm: Clase encargada de ejecutar el algoritmo genetico inicializando los parámetros esenciales del algoritmo además de la manipulación de la población de una generación a otra y calculo general del fitness de toda una población de individuos.
+* Individual: Cada individuo de la población está definido por una instancia de esta clase, la cual, brinda los métodos de crossover entre dos individuos además de la mutación entre un individuo y como obtener el fitness.
 
 ------------------------------------------------
 ## Estrategia de solución del juego
