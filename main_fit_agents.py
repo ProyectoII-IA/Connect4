@@ -7,7 +7,7 @@ def main():
     strategies = genetic.get_winner_information()
     print(strategies) """
 
-    genetic = GeneticAlgorithmByAgent(10,5) # Population
+    genetic = GeneticAlgorithmByAgent(10,1) # Population
     strategies = genetic.get_winner_information(5,0.10) #limiter and mutation probability
     print(strategies)
 
