@@ -113,36 +113,42 @@ Pseudocódigo:
 ```
 function get_action(board,array_number) return new movement using the board as reference.
     inputs: board, the state of the game 
-            array_number,
+            array_number, an array of objects position
 
     var_random -> a random number 
     if var_random < probability:
         return get_sequential_action(board, array_number)
     else:
         return get_space_action(board, array_number)
+```
 
+```
 function get_sequential_action(board, array_number) return new movement using the board as reference
     inputs: board, the state of the game
             array_number, an array of objects position
 
-    array_neighbors -> all neighbors close to own element on the board
+    array_neighbors -> get_neighbors(board)
     for neighbor in array_neighbors:
         if neighbor has neighbors:
-            array_number[neighbor[0]].increase_amount(neighbor[1]) # cost of one
-            array_number[neighbor[0]].increase_strategy()
+            array_number[neighbor[0]] -> increase amount (neighbor[1])
+            array_number[neighbor[0]] -> increase strategy
     return array_number
-    
+```
+
+``` 
 function get_space_action(board,array_number) return new movement using the board as reference
     inputs: board, the state of the game
             array_number: an array of objects position
     
-    array_neighbors -> all neighbors close to own element on the board
+    array_neighbors -> get_neighbors(board)
     for neighbor in array_neighbors:
-        if neighbor[1]==0:
-            array_number[neighbor[0]].increase_amount()
-            array_number[neighbor[0]].increase_strategy()
+        if neighbor does not have neighbors
+            array_number[neighbor[0]] -> increase amount
+            array_number[neighbor[0]] -> increase strategy
     return array_number    
-   
+```
+
+```
 function get_neighbors(board) return an array with tuples of neighbors
     inputs: board, the state of the game 
     
