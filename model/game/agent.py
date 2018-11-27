@@ -42,7 +42,9 @@ class Agent(Player):
         else:
             array_number = self.get_strategy(board)
             col = self.get_column_number(array_number)
-        return col
+        if (self.validate_action(board, col)):
+            return col
+        return self.next_action(board)
 
     def get_strategy(self, board):
         array_number = self.get_array_number()
